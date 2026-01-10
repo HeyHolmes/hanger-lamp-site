@@ -4,14 +4,14 @@ import Image from "next/image";
 import { useState, useRef, useCallback, useEffect } from "react";
 
 const images = [
-  { src: "/images/UP%2005.png", alt: "Hanger Lamp - UP 5" },
-  { src: "/images/UP%2004.png", alt: "Hanger Lamp - UP 4" },
-  { src: "/images/UP%2003.png", alt: "Hanger Lamp - UP 3" },
-  { src: "/images/UP%2002.png", alt: "Hanger Lamp - UP 2" },
-  { src: "/images/UP%2001.png", alt: "Hanger Lamp - UP 1" },
-  { src: "/images/UP%200.png", alt: "Hanger Lamp - UP 0" },
-  { src: "/images/DOWN%20-1.png", alt: "Hanger Lamp - Down -1" },
-  { src: "/images/DOWN%200.png", alt: "Hanger Lamp - Down 0" },
+  { src: "/images/UP_05.png", alt: "Hanger Lamp - UP 5" },
+  { src: "/images/UP_04.png", alt: "Hanger Lamp - UP 4" },
+  { src: "/images/UP_03.png", alt: "Hanger Lamp - UP 3" },
+  { src: "/images/UP_02.png", alt: "Hanger Lamp - UP 2" },
+  { src: "/images/UP_01.png", alt: "Hanger Lamp - UP 1" },
+  { src: "/images/UP_0.png", alt: "Hanger Lamp - UP 0" },
+  { src: "/images/DOWN_-1.png", alt: "Hanger Lamp - Down -1" },
+  { src: "/images/DOWN_0.png", alt: "Hanger Lamp - Down 0" },
 ];
 
 export default function Home() {
@@ -80,7 +80,7 @@ export default function Home() {
   }, [isDragging, handleDrag]);
 
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
-  const currentImage = isOff ? "/images/DOWN%20OFF.png" : images[activeImage].src;
+  const currentImage = isOff ? "/images/DOWN_OFF.png" : images[activeImage].src;
   const currentAlt = isOff ? "Hanger Lamp - Off" : images[activeImage].alt;
 
   return (
@@ -142,7 +142,7 @@ export default function Home() {
                 aria-label={isOff ? "Turn light on" : "Turn light off"}
               >
                 <Image
-                  src="/images/_switch%20up.png"
+                  src="/images/switch_up.png"
                   alt="Light switch"
                   width={64}
                   height={64}
