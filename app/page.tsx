@@ -122,7 +122,7 @@ export default function Home() {
             <h1 className="text-4xl font-normal tracking-tight mb-3">
               Hanger Lamp
             </h1>
-            <p className="text-xl mb-6">$800</p>
+            <p className="text-xl mb-6">$700</p>
             <p 
               className={`text-base leading-relaxed mb-12 max-w-xs transition-colors duration-500 ${
                 isOff ? "text-neutral-800" : "text-neutral-600"
