@@ -15,10 +15,45 @@ const images = [
 ];
 
 export default function Home() {
-  const [activeImage, setActiveImage] = useState(0);
+  const [activeImage, setActiveImage] = useState(images.length - 1); // Start at far right
   const [isDragging, setIsDragging] = useState(false);
   const [isOff, setIsOff] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(true);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  // Intro animation: slide from right to left over 3 seconds
+  useEffect(() => {
+    if (!isAnimating) return;
+
+    const duration = 3000; // 3 seconds
+    const startTime = Date.now();
+    const startIndex = images.length - 1;
+    const endIndex = 0;
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth deceleration
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      
+      const currentIndex = Math.round(startIndex - (startIndex - endIndex) * easeOut);
+      setActiveImage(currentIndex);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setIsAnimating(false);
+      }
+    };
+
+    // Small delay before starting animation
+    const timeout = setTimeout(() => {
+      requestAnimationFrame(animate);
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [isAnimating]);
 
   const handleDrag = useCallback((clientX: number) => {
     if (!trackRef.current) return;
@@ -32,13 +67,13 @@ export default function Home() {
   }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (isOff) return;
+    if (isOff || isAnimating) return;
     setIsDragging(true);
     handleDrag(e.clientX);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (isOff) return;
+    if (isOff || isAnimating) return;
     setIsDragging(true);
     handleDrag(e.touches[0].clientX);
   };
