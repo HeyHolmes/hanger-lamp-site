@@ -25,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     if (!isAnimating) return;
 
-    const duration = 3000; // 3 seconds
+    const duration = 5000; // 5 seconds
     const startTime = Date.now();
     const startIndex = images.length - 1;
     const endIndex = 0;
