@@ -4,14 +4,14 @@ import Image from "next/image";
 import { useState, useRef, useCallback, useEffect } from "react";
 
 const images = [
-  { src: "/images/UP_05.png", alt: "Hanger Lamp - UP 5" },
-  { src: "/images/UP_04.png", alt: "Hanger Lamp - UP 4" },
-  { src: "/images/UP_03.png", alt: "Hanger Lamp - UP 3" },
-  { src: "/images/UP_02.png", alt: "Hanger Lamp - UP 2" },
-  { src: "/images/UP_01.png", alt: "Hanger Lamp - UP 1" },
-  { src: "/images/UP_0.png", alt: "Hanger Lamp - UP 0" },
-  { src: "/images/DOWN_-1.png", alt: "Hanger Lamp - Down -1" },
   { src: "/images/DOWN_0.png", alt: "Hanger Lamp - Down 0" },
+  { src: "/images/DOWN_-1.png", alt: "Hanger Lamp - Down -1" },
+  { src: "/images/UP_0.png", alt: "Hanger Lamp - UP 0" },
+  { src: "/images/UP_01.png", alt: "Hanger Lamp - UP 1" },
+  { src: "/images/UP_02.png", alt: "Hanger Lamp - UP 2" },
+  { src: "/images/UP_03.png", alt: "Hanger Lamp - UP 3" },
+  { src: "/images/UP_04.png", alt: "Hanger Lamp - UP 4" },
+  { src: "/images/UP_05.png", alt: "Hanger Lamp - UP 5" },
 ];
 
 export default function Home() {
