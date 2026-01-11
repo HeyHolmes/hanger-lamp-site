@@ -181,7 +181,7 @@ export default function Home() {
                 isOff ? "text-neutral-800" : "text-neutral-600"
               }`}
             >
-              Bringing together two designs that have been around since the beginning of recorded history.
+              Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
             </p>
 
             {/* Draggable Slider */}
