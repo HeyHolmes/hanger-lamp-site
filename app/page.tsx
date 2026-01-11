@@ -174,9 +174,11 @@ export default function Home() {
 
       {/* ========== HERO SECTION ========== */}
       {/* Mobile Layout */}
-      <section className="md:hidden min-h-screen flex flex-col pt-16">
+      <section className={`md:hidden min-h-screen flex flex-col pt-16 transition-colors duration-500 ${
+        isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
+      }`}>
         {/* Product Image - Top */}
-        <div className="relative w-full h-[50vh] flex-shrink-0">
+        <div className="relative w-full h-[65vh] flex-shrink-0">
           <Image
             src={currentImage}
             alt={currentAlt}
