@@ -15,28 +15,27 @@ const images = [
 ];
 
 export default function Home() {
-  const [activeImage, setActiveImage] = useState(0); // Start at top (up position)
+  const [activeImage, setActiveImage] = useState(images.length - 1); // Start at bottom for animation
   const [isDragging, setIsDragging] = useState(false);
   const [isOff, setIsOff] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [showSliderHint, setShowSliderHint] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // Intro animation: step through each image from top to bottom
+  // Intro animation: step through each image from bottom to top
   useEffect(() => {
     if (!isAnimating) return;
 
-    const timePerImage = 450;
-    const endIndex = images.length - 1;
-    let currentIndex = 0;
+    const timePerImage = 360;
+    let currentIndex = images.length - 1; // Start at bottom
 
     const initialTimeout = setTimeout(() => {
       const interval = setInterval(() => {
-        currentIndex++;
-        if (currentIndex <= endIndex) {
+        currentIndex--;
+        if (currentIndex >= 0) {
           setActiveImage(currentIndex);
         }
-        if (currentIndex >= endIndex) {
+        if (currentIndex <= 0) {
           clearInterval(interval);
           setIsAnimating(false);
           setShowSliderHint(true);
@@ -116,109 +115,312 @@ export default function Home() {
   const switchImage = isOff ? "/images/switch-down.png" : "/images/switch-up.png";
 
   return (
-    <div className="min-h-screen font-sans select-none relative">
-      {/* Full-screen background image */}
-      <div className="fixed inset-0 z-0">
-        <Image
-          src={currentImage}
-          alt={currentAlt}
-          fill
-          className="object-cover transition-opacity duration-300"
-          priority
-          sizes="100vw"
-        />
-      </div>
-
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center gap-16 px-12 py-8">
-        <a 
-          href="#" 
-          className="text-xl font-medium tracking-wide border-b-2 border-black pb-0.5"
-        >
-          HL
-        </a>
-        <div className="flex items-center gap-12 text-lg tracking-wide">
-          <a href="#visuals" className="hover:opacity-60 transition-opacity">
-            Visuals
-          </a>
-          <a href="#specs" className="hover:opacity-60 transition-opacity">
-            Specs
-          </a>
-          <a href="#contact" className="hover:opacity-60 transition-opacity">
-            Contact
-          </a>
-        </div>
-      </nav>
-
-      {/* Content overlay - Left side */}
-      <div className="fixed left-12 top-1/2 -translate-y-1/2 z-10 max-w-xs">
-        <h1 className="text-3xl font-normal tracking-tight mb-2">
-          Hanger Lamp
-        </h1>
-        <p className="text-lg mb-4">$700</p>
-        <p className="text-sm leading-relaxed mb-8 text-neutral-700">
-          Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
-        </p>
-
-        {/* CTA Button */}
-        <button className="bg-[#c41e1e] text-white px-6 py-3 text-sm tracking-wide hover:bg-[#a31818] transition-colors mb-4">
-          Batch 1: Sold out
-        </button>
-
-        {/* Newsletter signup link */}
-        <a 
-          href="#signup" 
-          className="block text-sm underline hover:opacity-60 transition-opacity cursor-pointer"
-        >
-          Sign up for batch 2
-        </a>
-      </div>
-
-      {/* Vertical Slider - Right side */}
-      <div className="fixed right-24 top-1/2 -translate-y-1/2 z-10">
-        {/* Slider hint */}
-        {showSliderHint && (
-          <div className="absolute -left-16 top-1/2 -translate-y-1/2 flex items-center gap-2 animate-pulse">
-            <span className="text-xs text-neutral-600 whitespace-nowrap">Drag</span>
-          </div>
-        )}
-        
-        <div 
-          ref={trackRef}
-          className={`relative w-8 h-72 transition-opacity duration-500 ${
-            isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
-          }`}
-          onMouseDown={handleMouseDown}
-          onTouchStart={handleTouchStart}
-        >
-          {/* Track line - thin vertical black line */}
-          <div 
-            className={`absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 transition-colors duration-500 ${
-              isOff ? "bg-neutral-500" : "bg-black"
-            }`} 
+    <div className="font-sans select-none">
+      {/* ========== HERO SECTION ========== */}
+      <section className="relative h-screen">
+        {/* Full-screen background image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={currentImage}
+            alt={currentAlt}
+            fill
+            className="object-cover transition-opacity duration-300"
+            priority
+            sizes="100vw"
           />
-          
-          {/* Draggable handle - rectangular tan/beige */}
-          <div 
-            className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-5 transition-all duration-300 ${
-              isOff ? "bg-neutral-500" : "bg-[#b8a88a] hover:scale-110"
+        </div>
+
+        {/* Navigation */}
+        <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center gap-16 px-12 py-8 transition-colors duration-500 ${
+          isOff ? "text-neutral-200" : "text-black"
+        }`}>
+          <a 
+            href="#" 
+            className={`text-xl font-medium tracking-wide border-b-2 pb-0.5 transition-colors duration-500 ${
+              isOff ? "border-neutral-200" : "border-black"
             }`}
-            style={{ top: `${sliderPosition}%` }}
-          />
-        </div>
-      </div>
+          >
+            HL
+          </a>
+          <div className="flex items-center gap-12 text-lg tracking-wide">
+            <a href="#specs" className="hover:opacity-60 transition-opacity">
+              Spec Sheet
+            </a>
+            <a href="#contact" className="hover:opacity-60 transition-opacity">
+              Contact
+            </a>
+          </div>
+        </nav>
 
-      {/* Switch - Bottom right with border */}
+        {/* Content overlay - Left side */}
+        <div className={`absolute left-12 top-1/2 -translate-y-1/2 z-10 max-w-xs transition-colors duration-500 ${
+          isOff ? "text-neutral-200" : "text-black"
+        }`}>
+          <h1 className="text-3xl font-normal tracking-tight mb-2">
+            Hanger Lamp
+          </h1>
+          <p className="text-lg mb-4">$700</p>
+          <p className={`text-sm leading-relaxed mb-8 transition-colors duration-500 ${
+            isOff ? "text-neutral-300" : "text-neutral-700"
+          }`}>
+            Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
+          </p>
+
+          {/* CTA Button */}
+          <button className="bg-[#c41e1e] text-white px-6 py-3 text-sm tracking-wide hover:bg-[#a31818] transition-colors mb-4">
+            Batch 1: Sold out
+          </button>
+
+          {/* Newsletter signup link */}
+          <a 
+            href="#signup" 
+            className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer ${
+              isOff ? "text-neutral-300" : "text-black"
+            }`}
+          >
+            Sign up for batch 2
+          </a>
+        </div>
+
+        {/* Vertical Slider - Right side, closer to lamp */}
+        <div className="absolute right-[22%] top-1/2 -translate-y-1/2 z-10">
+          {/* Slider hint */}
+          {showSliderHint && (
+            <div className="absolute -left-16 top-1/2 -translate-y-1/2 flex items-center gap-2 animate-pulse">
+              <span className={`text-xs whitespace-nowrap transition-colors duration-500 ${
+                isOff ? "text-neutral-400" : "text-neutral-600"
+              }`}>Drag</span>
+            </div>
+          )}
+          
+          <div 
+            ref={trackRef}
+            className={`relative w-8 h-72 transition-opacity duration-500 ${
+              isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
+            }`}
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
+          >
+            {/* Track line - thin vertical black line */}
+            <div 
+              className={`absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 transition-colors duration-500 ${
+                isOff ? "bg-neutral-500" : "bg-black"
+              }`} 
+            />
+            
+            {/* Draggable handle - rectangular tan/beige */}
+            <div 
+              className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-5 transition-all duration-300 ${
+                isOff ? "bg-neutral-500" : "bg-[#b8a88a] hover:scale-110"
+              }`}
+              style={{ top: `${sliderPosition}%` }}
+            />
+          </div>
+        </div>
+
+      </section>
+
+      {/* ========== MOOD BOARD / COLLAGE SECTION ========== */}
+      <section id="visuals" className={`py-12 px-8 transition-colors duration-500 ${
+        isOff ? "bg-[#2a2a2a]" : "bg-[#f5f4f0]"
+      }`}>
+        {/* Asymmetric Grid - Hardsun-inspired layout */}
+        <div className="max-w-7xl mx-auto grid grid-cols-12 gap-4 auto-rows-[200px]">
+          
+          {/* Large featured image - spans 8 cols, 2 rows */}
+          <div className="col-span-8 row-span-2 relative overflow-hidden group">
+            <Image
+              src={isOff ? "/images/pholder_dark_1.JPG" : "/images/pholder_light_1.png"}
+              alt="Hanger Lamp lifestyle"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Text block - spans 4 cols, 1 row */}
+          <div className={`col-span-4 row-span-1 p-8 flex flex-col justify-center transition-colors duration-500 ${
+            isOff ? "bg-[#3a3a3a] text-neutral-200" : "bg-[#e8e6e0] text-black"
+          }`}>
+            <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
+              isOff ? "text-neutral-400" : "text-neutral-500"
+            }`}>MATERIALS</h3>
+            <p className="text-lg font-light leading-relaxed">
+              Teak<br />
+              Stainless Steel Hardware<br />
+              6061 Aluminum<br />
+              Powder Coated
+            </p>
+          </div>
+
+          {/* Small image - spans 4 cols, 1 row */}
+          <div className="col-span-4 row-span-1 relative overflow-hidden group">
+            <Image
+              src="/images/pholder_light_3.png"
+              alt="Hanger Lamp detail"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Video block - spans 6 cols, 2 rows */}
+          <div className="col-span-6 row-span-2 relative overflow-hidden">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            >
+              <source src="/images/pholder_light_2.MOV" type="video/quicktime" />
+              <source src="/images/pholder_light_2.MOV" type="video/mp4" />
+            </video>
+          </div>
+
+          {/* Specs text block - spans 3 cols, 2 rows */}
+          <div className="col-span-3 row-span-2 bg-[#2a2a2a] text-white p-8 flex flex-col justify-between">
+            <div>
+              <h3 className="text-sm font-medium tracking-widest text-neutral-400 mb-4">SPECIFICATIONS</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between border-b border-neutral-700 pb-2">
+                  <span className="text-neutral-400">Width</span>
+                  <span>36"</span>
+                </div>
+                <div className="flex justify-between border-b border-neutral-700 pb-2">
+                  <span className="text-neutral-400">Height</span>
+                  <span>14"</span>
+                </div>
+                <div className="flex justify-between border-b border-neutral-700 pb-2">
+                  <span className="text-neutral-400">Depth</span>
+                  <span>8"</span>
+                </div>
+                <div className="flex justify-between border-b border-neutral-700 pb-2">
+                  <span className="text-neutral-400">Weight</span>
+                  <span>4.2 lbs</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-neutral-400">Bulb</span>
+                  <span>E26 LED</span>
+                </div>
+              </div>
+            </div>
+            <p className="text-xs text-neutral-500 mt-4">
+              UL Listed. Dimmable with compatible switch.
+            </p>
+          </div>
+
+          {/* Medium image - spans 3 cols, 2 rows */}
+          <div className="col-span-3 row-span-2 relative overflow-hidden group">
+            <Image
+              src={isOff ? "/images/pholder_dark_2.JPG" : "/images/pholder_light_4.png"}
+              alt="Hanger Lamp in use"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Quote block - spans 4 cols, 1 row */}
+          <div className={`col-span-4 row-span-1 p-8 flex items-center transition-colors duration-500 ${
+            isOff ? "bg-[#4a4a4a] text-neutral-200" : "bg-[#c9c4b8] text-black"
+          }`}>
+            <p className="text-lg italic font-light">
+              "Form follows function—but here, they dance together."
+            </p>
+          </div>
+
+          {/* Image - spans 4 cols, 2 rows */}
+          <div className="col-span-4 row-span-2 relative overflow-hidden group">
+            <Image
+              src="/images/pholder_light_5.png"
+              alt="Hanger Lamp close-up"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Care text block - spans 4 cols, 1 row */}
+          <div className={`col-span-4 row-span-1 p-8 flex flex-col justify-center transition-colors duration-500 ${
+            isOff ? "bg-[#3a3a3a]" : "bg-white"
+          }`}>
+            <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
+              isOff ? "text-neutral-400" : "text-neutral-500"
+            }`}>CARE</h3>
+            <p className={`text-sm leading-relaxed transition-colors duration-500 ${
+              isOff ? "text-neutral-300" : "text-neutral-600"
+            }`}>
+              Wipe with a soft, dry cloth. The teak will patina naturally over time, developing a rich silver-grey character if left untreated.
+            </p>
+          </div>
+
+          {/* Large final image - spans 8 cols, 2 rows */}
+          <div className="col-span-8 row-span-2 relative overflow-hidden group">
+            <Image
+              src="/images/pholder_light_6.png"
+              alt="Hanger Lamp environment"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Final CTA block - spans 4 cols, 2 rows */}
+          <div className={`col-span-4 row-span-2 p-8 flex flex-col justify-center items-start transition-colors duration-500 ${
+            isOff ? "bg-[#1a1a1a] text-white" : "bg-[#1a1a1a] text-white"
+          }`}>
+            <h3 className="text-2xl font-light mb-4">Ready to hang?</h3>
+            <p className="text-neutral-400 text-sm mb-6">
+              Batch 2 ships Spring 2026. Join the waitlist to be first in line.
+            </p>
+            <button className={`px-6 py-3 text-sm tracking-wide transition-colors ${
+              isOff ? "bg-neutral-600 text-white hover:bg-neutral-500" : "bg-white text-black hover:bg-neutral-200"
+            }`}>
+              Join Waitlist
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ========== FOOTER ========== */}
+      <footer id="contact" className="bg-[#1a1a1a] text-white py-16 px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-3 gap-12">
+          <div>
+            <h4 className="text-xl font-medium mb-4">Hanger Lamp</h4>
+            <p className="text-neutral-400 text-sm leading-relaxed">
+              Designed in Brooklyn, NY.<br />
+              Manufactured in the USA.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-sm font-medium tracking-widest text-neutral-500 mb-4">CONTACT</h4>
+            <p className="text-neutral-400 text-sm">
+              hello@hangerlamp.com<br />
+              @hangerlamp
+            </p>
+          </div>
+          <div>
+            <h4 className="text-sm font-medium tracking-widest text-neutral-500 mb-4">LINKS</h4>
+            <div className="space-y-2 text-sm">
+              <a href="#" className="block text-neutral-400 hover:text-white transition-colors">FAQ</a>
+              <a href="#" className="block text-neutral-400 hover:text-white transition-colors">Shipping & Returns</a>
+              <a href="#" className="block text-neutral-400 hover:text-white transition-colors">Terms & Conditions</a>
+            </div>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-neutral-800 text-neutral-500 text-xs">
+          © 2026 Hanger Lamp. All rights reserved.
+        </div>
+      </footer>
+
+      {/* ========== FIXED LIGHT SWITCH ========== */}
       <button 
         onClick={toggleLight}
-        className="fixed bottom-12 right-24 z-50 w-16 h-20 border border-neutral-400 overflow-hidden transition-all duration-300 hover:scale-105 bg-white/50 relative"
+        className="fixed bottom-8 right-8 z-50 w-28 h-40 overflow-hidden transition-all duration-300 hover:scale-105"
         aria-label={isOff ? "Turn light on" : "Turn light off"}
       >
         <Image
           src={switchImage}
           alt="Light switch"
-          width={64}
-          height={80}
+          width={112}
+          height={160}
           className="w-full h-full object-contain transition-all duration-500"
         />
         {/* Dark overlay when lights are off */}
@@ -226,9 +428,6 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/40 transition-opacity duration-500" />
         )}
       </button>
-
-      {/* Footer Bar */}
-      <div className="fixed bottom-0 left-0 right-0 h-12 bg-[#a8a49c] z-0" />
     </div>
   );
 }
