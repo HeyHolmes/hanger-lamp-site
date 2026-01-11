@@ -4,14 +4,14 @@ import Image from "next/image";
 import { useState, useRef, useCallback, useEffect } from "react";
 
 const images = [
-  { src: "/images/DOWN_0.png", alt: "Hanger Lamp - Down 0" },
-  { src: "/images/DOWN_-1.png", alt: "Hanger Lamp - Down -1" },
-  { src: "/images/UP_0.png", alt: "Hanger Lamp - UP 0" },
-  { src: "/images/UP_01.png", alt: "Hanger Lamp - UP 1" },
-  { src: "/images/UP_02.png", alt: "Hanger Lamp - UP 2" },
-  { src: "/images/UP_03.png", alt: "Hanger Lamp - UP 3" },
-  { src: "/images/UP_04.png", alt: "Hanger Lamp - UP 4" },
-  { src: "/images/UP_05.png", alt: "Hanger Lamp - UP 5" },
+  { src: "/images/images_hires/_0.png", alt: "Hanger Lamp - 0" },
+  { src: "/images/images_hires/_1.png", alt: "Hanger Lamp - 1" },
+  { src: "/images/images_hires/_2.png", alt: "Hanger Lamp - 2" },
+  { src: "/images/images_hires/_3.png", alt: "Hanger Lamp - 3" },
+  { src: "/images/images_hires/_4.png", alt: "Hanger Lamp - 4" },
+  { src: "/images/images_hires/_5.png", alt: "Hanger Lamp - 5" },
+  { src: "/images/images_hires/_6.png", alt: "Hanger Lamp - 6" },
+  { src: "/images/images_hires/_7.png", alt: "Hanger Lamp - 7" },
 ];
 
 export default function Home() {
@@ -22,15 +22,14 @@ export default function Home() {
   const [showSliderHint, setShowSliderHint] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // Intro animation: step through each image with 0.45s per image (10% faster)
+  // Intro animation: step through each image with 0.45s per image
   useEffect(() => {
     if (!isAnimating) return;
 
-    const timePerImage = 450; // 0.45 seconds per image (10% faster)
+    const timePerImage = 450;
     const startIndex = images.length - 1;
     let currentIndex = startIndex;
 
-    // Delay before starting animation so users can see the initial state
     const initialTimeout = setTimeout(() => {
       const interval = setInterval(() => {
         currentIndex--;
@@ -40,9 +39,7 @@ export default function Home() {
         if (currentIndex <= 0) {
           clearInterval(interval);
           setIsAnimating(false);
-          // Show the slider hint arrow after animation ends
           setShowSliderHint(true);
-          // Hide the hint after 3 seconds
           setTimeout(() => setShowSliderHint(false), 3000);
         }
       }, timePerImage);
@@ -51,29 +48,30 @@ export default function Home() {
     return () => clearTimeout(initialTimeout);
   }, [isAnimating]);
 
-  const handleDrag = useCallback((clientX: number) => {
+  // Vertical slider drag handler
+  const handleDrag = useCallback((clientY: number) => {
     if (!trackRef.current) return;
     
     const track = trackRef.current;
     const rect = track.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const percentage = Math.max(0, Math.min(1, x / rect.width));
+    const y = clientY - rect.top;
+    const percentage = Math.max(0, Math.min(1, y / rect.height));
     const imageIndex = Math.round(percentage * (images.length - 1));
     setActiveImage(imageIndex);
   }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (isOff || isAnimating) return;
-    setShowSliderHint(false); // Hide hint when user interacts
+    setShowSliderHint(false);
     setIsDragging(true);
-    handleDrag(e.clientX);
+    handleDrag(e.clientY);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (isOff || isAnimating) return;
-    setShowSliderHint(false); // Hide hint when user interacts
+    setShowSliderHint(false);
     setIsDragging(true);
-    handleDrag(e.touches[0].clientX);
+    handleDrag(e.touches[0].clientY);
   };
 
   const toggleLight = () => {
@@ -83,13 +81,13 @@ export default function Home() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging) {
-        handleDrag(e.clientX);
+        handleDrag(e.clientY);
       }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       if (isDragging) {
-        handleDrag(e.touches[0].clientX);
+        handleDrag(e.touches[0].clientY);
       }
     };
 
@@ -113,29 +111,33 @@ export default function Home() {
   }, [isDragging, handleDrag]);
 
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
-  const currentImage = isOff ? "/images/DOWN_OFF.png" : images[activeImage].src;
+  const currentImage = isOff ? "/images/images_hires/_dark_on.png" : images[activeImage].src;
   const currentAlt = isOff ? "Hanger Lamp - Off" : images[activeImage].alt;
   const switchImage = isOff ? "/images/switch-down.png" : "/images/switch-up.png";
 
   return (
-    <div 
-      className={`min-h-screen font-sans select-none transition-colors duration-500 ${
-        isOff ? "bg-[#7F7D75] text-[#1a1a1a]" : "bg-[#d9d5cd] text-[#1a1a1a]"
-      }`}
-    >
-      {/* Navigation - Hidden on mobile, visible on desktop */}
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center gap-16 px-12 py-6 transition-colors duration-500 ${
-          isOff ? "bg-[#7F7D75]" : "bg-[#d9d5cd]"
-        }`}
-      >
+    <div className="min-h-screen font-sans select-none relative">
+      {/* Full-screen background image */}
+      <div className="fixed inset-0 z-0">
+        <Image
+          src={currentImage}
+          alt={currentAlt}
+          fill
+          className="object-cover transition-opacity duration-300"
+          priority
+          sizes="100vw"
+        />
+      </div>
+
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center gap-16 px-12 py-8">
         <a 
           href="#" 
           className="text-xl font-medium tracking-wide border-b-2 border-black pb-0.5"
         >
           HL
         </a>
-        <div className="flex items-center gap-12 text-base tracking-wide">
+        <div className="flex items-center gap-12 text-lg tracking-wide">
           <a href="#visuals" className="hover:opacity-60 transition-opacity">
             Visuals
           </a>
@@ -148,121 +150,89 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Main Content - Stack on mobile, side-by-side on desktop */}
-      <main className="flex flex-col md:flex-row min-h-screen">
-        
-        {/* Image Panel - First on mobile (top), second on desktop (right) */}
-        <div 
-          className={`w-full h-[50vh] md:w-1/2 md:h-screen md:sticky md:top-0 md:order-2 overflow-hidden transition-colors duration-500 ${
-            isOff ? "bg-[#7F7D75]" : "bg-[#d9d5cd]"
-          }`}
+      {/* Content overlay - Left side */}
+      <div className="fixed left-12 top-1/2 -translate-y-1/2 z-10 max-w-xs">
+        <h1 className="text-3xl font-normal tracking-tight mb-2">
+          Hanger Lamp
+        </h1>
+        <p className="text-lg mb-4">$700</p>
+        <p className="text-sm leading-relaxed mb-8 text-neutral-700">
+          Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
+        </p>
+
+        {/* CTA Button */}
+        <button className="bg-[#c41e1e] text-white px-6 py-3 text-sm tracking-wide hover:bg-[#a31818] transition-colors mb-4">
+          Batch 1: Sold out
+        </button>
+
+        {/* Newsletter signup link */}
+        <a 
+          href="#signup" 
+          className="block text-sm underline hover:opacity-60 transition-opacity cursor-pointer"
         >
-          {/* Main product image */}
-          <div className="relative w-full h-full">
-            <Image
-              src={currentImage}
-              alt={currentAlt}
-              fill
-              className="object-contain transition-opacity duration-300"
-              priority
-            />
-          </div>
-        </div>
+          Sign up for batch 2
+        </a>
+      </div>
 
-        {/* Content Panel - Second on mobile (below image), first on desktop (left) */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center px-6 py-10 md:px-16 md:py-24 md:pt-32 md:order-1">
-          <div className="max-w-md mx-auto md:mx-0">
-            <h1 className="text-3xl md:text-4xl font-normal tracking-tight mb-2 md:mb-3">
-              Hanger Lamp
-            </h1>
-            <p className="text-lg md:text-xl mb-4 md:mb-6">$700</p>
-            <p 
-              className={`text-sm md:text-base leading-relaxed mb-8 md:mb-12 max-w-xs transition-colors duration-500 ${
-                isOff ? "text-neutral-800" : "text-neutral-600"
-              }`}
+      {/* Vertical Slider - Right side */}
+      <div className="fixed right-24 top-1/2 -translate-y-1/2 z-10">
+        {/* Slider hint */}
+        {showSliderHint && (
+          <div className="absolute -left-20 top-1/2 -translate-y-1/2 flex items-center gap-2 animate-pulse">
+            <span className="text-xs text-neutral-600 whitespace-nowrap">Drag</span>
+            <svg 
+              className="w-3 h-3 text-neutral-600" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
             >
-              Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
-            </p>
-
-            {/* Draggable Slider */}
-            <div className="relative mb-10 md:mb-16">
-              {/* Slider hint arrow */}
-              {showSliderHint && (
-                <div className="absolute -top-8 left-0 flex items-center gap-2 animate-pulse">
-                  <span className="text-sm text-neutral-600">Drag to explore</span>
-                  <svg 
-                    className="w-4 h-4 text-neutral-600 animate-bounce" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
-                </div>
-              )}
-              
-              <div 
-                ref={trackRef}
-                className={`relative h-12 transition-opacity duration-500 ${
-                  isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
-                }`}
-                onMouseDown={handleMouseDown}
-                onTouchStart={handleTouchStart}
-              >
-                {/* Track line */}
-                <div 
-                  className={`absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 transition-colors duration-500 ${
-                    isOff ? "bg-neutral-500" : "bg-neutral-400"
-                  }`} 
-                />
-                
-                {/* Draggable handle */}
-                <div 
-                  className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-8 rounded-sm transition-all duration-300 ${
-                    isOff ? "bg-neutral-700" : "bg-black hover:scale-110"
-                  }`}
-                  style={{ left: `${sliderPosition}%` }}
-                />
-              </div>
-            </div>
-
-            {/* CTA Button */}
-            <button className="w-full md:w-auto bg-[#c41e1e] text-white px-8 py-4 text-base tracking-wide hover:bg-[#a31818] transition-colors mb-4">
-              Batch 1: Sold out
-            </button>
-
-            {/* Newsletter signup link */}
-            <a 
-              href="#signup" 
-              className="block text-base underline hover:opacity-60 transition-opacity cursor-pointer"
-            >
-              Sign up for batch 2
-            </a>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </div>
+        )}
+        
+        <div 
+          ref={trackRef}
+          className={`relative w-12 h-64 transition-opacity duration-500 ${
+            isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
+          }`}
+          onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
+        >
+          {/* Track line - vertical */}
+          <div 
+            className={`absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 transition-colors duration-500 ${
+              isOff ? "bg-neutral-500" : "bg-neutral-400"
+            }`} 
+          />
+          
+          {/* Draggable handle */}
+          <div 
+            className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-sm transition-all duration-300 ${
+              isOff ? "bg-neutral-700" : "bg-[#c9a227] hover:scale-110"
+            }`}
+            style={{ top: `${sliderPosition}%` }}
+          />
         </div>
-      </main>
+      </div>
 
-      {/* Footer Bar */}
-      <div 
-        className={`h-12 md:h-16 transition-colors duration-500 ${
-          isOff ? "bg-[#5a5852]" : "bg-[#a8a49c]"
-        }`} 
-      />
-
-      {/* Fixed Switch - Always visible at bottom center */}
+      {/* Switch - Bottom right with border */}
       <button 
         onClick={toggleLight}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90px] h-[112px] md:w-[112px] md:h-[134px] overflow-hidden transition-all duration-300 hover:scale-105"
+        className="fixed bottom-12 right-24 z-50 w-16 h-20 border border-neutral-400 overflow-hidden transition-all duration-300 hover:scale-105 bg-white/50"
         aria-label={isOff ? "Turn light on" : "Turn light off"}
       >
         <Image
           src={switchImage}
           alt="Light switch"
-          width={112}
-          height={134}
+          width={64}
+          height={80}
           className="w-full h-full object-contain transition-all duration-500"
         />
       </button>
+
+      {/* Footer Bar */}
+      <div className="fixed bottom-0 left-0 right-0 h-12 bg-[#a8a49c] z-0" />
     </div>
   );
 }
