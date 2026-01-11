@@ -178,12 +178,12 @@ export default function Home() {
         isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
       }`}>
         {/* Product Image - Top */}
-        <div className="relative w-full h-[65vh] flex-shrink-0">
+        <div className="relative w-full h-[50vh] flex-shrink-0">
           <Image
             src={currentImage}
             alt={currentAlt}
             fill
-            className="object-cover transition-opacity duration-300"
+            className="object-cover object-center transition-opacity duration-300"
             priority
             sizes="100vw"
           />
