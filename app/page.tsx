@@ -146,12 +146,12 @@ export default function Home() {
         
         {/* Image Panel - First on mobile (top), second on desktop (right) */}
         <div 
-          className={`w-full h-[50vh] md:w-1/2 md:h-screen md:sticky md:top-0 md:order-2 overflow-hidden transition-colors duration-500 flex flex-col ${
+          className={`w-full h-[50vh] md:w-1/2 md:h-screen md:sticky md:top-0 md:order-2 overflow-hidden transition-colors duration-500 ${
             isOff ? "bg-[#7F7D75]" : "bg-[#d9d5cd]"
           }`}
         >
           {/* Main product image */}
-          <div className="relative flex-1">
+          <div className="relative w-full h-full">
             <Image
               src={currentImage}
               alt={currentAlt}
@@ -159,23 +159,6 @@ export default function Home() {
               className="object-contain transition-opacity duration-300"
               priority
             />
-          </div>
-          
-          {/* Switch below the image */}
-          <div className="flex justify-center pb-4 md:pb-8">
-            <button 
-              onClick={toggleLight}
-              className="w-20 h-24 md:w-24 md:h-28 overflow-hidden flex-shrink-0 transition-all duration-300 hover:scale-105"
-              aria-label={isOff ? "Turn light on" : "Turn light off"}
-            >
-              <Image
-                src={switchImage}
-                alt="Light switch"
-                width={96}
-                height={112}
-                className="w-full h-full object-contain transition-all duration-500"
-              />
-            </button>
           </div>
         </div>
 
@@ -241,6 +224,21 @@ export default function Home() {
           isOff ? "bg-[#5a5852]" : "bg-[#a8a49c]"
         }`} 
       />
+
+      {/* Fixed Switch - Always visible at bottom center */}
+      <button 
+        onClick={toggleLight}
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-16 h-20 md:w-20 md:h-24 overflow-hidden transition-all duration-300 hover:scale-105"
+        aria-label={isOff ? "Turn light on" : "Turn light off"}
+      >
+        <Image
+          src={switchImage}
+          alt="Light switch"
+          width={80}
+          height={96}
+          className="w-full h-full object-contain transition-all duration-500"
+        />
+      </button>
     </div>
   );
 }
