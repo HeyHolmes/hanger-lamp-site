@@ -351,12 +351,30 @@ export default function Home() {
 
           <a 
             href="#signup" 
-            className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer ${
+            className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer mb-6 ${
               isOff ? "text-neutral-300" : "text-black"
             }`}
           >
             Sign up for batch 2
           </a>
+
+          {/* Light Switch - Desktop */}
+          <button 
+            onClick={toggleLight}
+            className="w-20 h-28 overflow-hidden transition-all duration-300 hover:scale-105 relative"
+            aria-label={isOff ? "Turn light on" : "Turn light off"}
+          >
+            <Image
+              src={switchImage}
+              alt="Light switch"
+              width={80}
+              height={112}
+              className="w-full h-full object-contain transition-all duration-500"
+            />
+            {isOff && (
+              <div className="absolute inset-0 bg-black/40 transition-opacity duration-500" />
+            )}
+          </button>
         </div>
 
         {/* Vertical Slider - Desktop only */}
@@ -412,7 +430,7 @@ export default function Home() {
 
           {/* Materials text block */}
           <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex flex-col justify-center transition-colors duration-500 ${
-            isOff ? "bg-[#3a3a3a] text-neutral-200" : "bg-[#e8e6e0] text-black"
+            isOff ? "text-neutral-200" : "text-black"
           }`}>
             <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
               isOff ? "text-neutral-400" : "text-neutral-500"
@@ -450,33 +468,47 @@ export default function Home() {
           </div>
 
           {/* Specs text block */}
-          <div id="specs" className="md:col-span-3 md:row-span-2 bg-[#2a2a2a] text-white p-6 md:p-8 flex flex-col justify-between">
+          <div id="specs" className={`md:col-span-3 md:row-span-2 p-6 md:p-8 flex flex-col justify-between transition-colors duration-500 ${
+            isOff ? "text-neutral-200" : "text-black"
+          }`}>
             <div>
-              <h3 className="text-sm font-medium tracking-widest text-neutral-400 mb-4">SPECIFICATIONS</h3>
+              <h3 className={`text-sm font-medium tracking-widest mb-4 transition-colors duration-500 ${
+                isOff ? "text-neutral-400" : "text-neutral-500"
+              }`}>SPECIFICATIONS</h3>
               <div className="space-y-3 text-sm">
-                <div className="flex justify-between border-b border-neutral-700 pb-2">
-                  <span className="text-neutral-400">Width</span>
+                <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
+                  isOff ? "border-neutral-700" : "border-neutral-300"
+                }`}>
+                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Width</span>
                   <span>36"</span>
                 </div>
-                <div className="flex justify-between border-b border-neutral-700 pb-2">
-                  <span className="text-neutral-400">Height</span>
+                <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
+                  isOff ? "border-neutral-700" : "border-neutral-300"
+                }`}>
+                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Height</span>
                   <span>14"</span>
                 </div>
-                <div className="flex justify-between border-b border-neutral-700 pb-2">
-                  <span className="text-neutral-400">Depth</span>
+                <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
+                  isOff ? "border-neutral-700" : "border-neutral-300"
+                }`}>
+                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Depth</span>
                   <span>8"</span>
                 </div>
-                <div className="flex justify-between border-b border-neutral-700 pb-2">
-                  <span className="text-neutral-400">Weight</span>
+                <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
+                  isOff ? "border-neutral-700" : "border-neutral-300"
+                }`}>
+                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Weight</span>
                   <span>4.2 lbs</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-neutral-400">Bulb</span>
+                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Bulb</span>
                   <span>E26 LED</span>
                 </div>
               </div>
             </div>
-            <p className="text-xs text-neutral-500 mt-4">
+            <p className={`text-xs mt-4 transition-colors duration-500 ${
+              isOff ? "text-neutral-400" : "text-neutral-500"
+            }`}>
               UL Listed. Dimmable with compatible switch.
             </p>
           </div>
@@ -493,7 +525,7 @@ export default function Home() {
 
           {/* Quote block */}
           <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex items-center transition-colors duration-500 ${
-            isOff ? "bg-[#4a4a4a] text-neutral-200" : "bg-[#c9c4b8] text-black"
+            isOff ? "text-neutral-200" : "text-black"
           }`}>
             <p className="text-base md:text-lg italic font-light">
               "Form follows function—but here, they dance together."
@@ -512,7 +544,7 @@ export default function Home() {
 
           {/* Care text block */}
           <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex flex-col justify-center transition-colors duration-500 ${
-            isOff ? "bg-[#3a3a3a]" : "bg-white"
+            isOff ? "text-neutral-200" : "text-black"
           }`}>
             <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
               isOff ? "text-neutral-400" : "text-neutral-500"
@@ -580,24 +612,6 @@ export default function Home() {
           © 2026 Hanger Lamp. All rights reserved.
         </div>
       </footer>
-
-      {/* ========== FIXED LIGHT SWITCH (Desktop only) ========== */}
-      <button 
-        onClick={toggleLight}
-        className="hidden md:block fixed bottom-8 right-8 z-50 w-28 h-40 overflow-hidden transition-all duration-300 hover:scale-105"
-        aria-label={isOff ? "Turn light on" : "Turn light off"}
-      >
-        <Image
-          src={switchImage}
-          alt="Light switch"
-          width={112}
-          height={160}
-          className="w-full h-full object-contain transition-all duration-500"
-        />
-        {isOff && (
-          <div className="absolute inset-0 bg-black/40 transition-opacity duration-500" />
-        )}
-      </button>
     </div>
   );
 }
