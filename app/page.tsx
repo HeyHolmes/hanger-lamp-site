@@ -149,7 +149,7 @@ export default function Home() {
   const switchImage = isOff ? "/images/switch-down.png" : "/images/switch-up.png";
 
   return (
-    <div className="font-sans select-none">
+    <div className="font-sans select-none bg-[#CCC5BD]">
       {/* ========== NAVIGATION ========== */}
       <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-start md:gap-16 px-4 md:px-12 py-4 md:py-8 transition-colors duration-500 ${
         isOff ? "text-neutral-200" : "text-black"
@@ -185,6 +185,10 @@ export default function Home() {
             priority
             sizes="100vw"
           />
+          {/* Gradient fade at bottom */}
+          <div className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
+            isOff ? "from-[#2a2a2a]" : "from-[#CCC5BD]"
+          }`} />
         </div>
 
         {/* Horizontal Slider */}
@@ -280,6 +284,10 @@ export default function Home() {
             priority
             sizes="100vw"
           />
+          {/* Gradient fade at bottom */}
+          <div className={`absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
+            isOff ? "from-[#2a2a2a]" : "from-[#CCC5BD]"
+          }`} />
         </div>
 
         {/* Content overlay - Left side */}
@@ -346,7 +354,7 @@ export default function Home() {
 
       {/* ========== MOOD BOARD / COLLAGE SECTION ========== */}
       <section id="visuals" className={`py-8 md:py-12 px-4 md:px-8 transition-colors duration-500 ${
-        isOff ? "bg-[#2a2a2a]" : "bg-[#f5f4f0]"
+        isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
       }`}>
         {/* Mobile: Single column / Desktop: 12-column grid */}
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:auto-rows-[200px]">
