@@ -108,6 +108,7 @@ export default function Home() {
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
   const currentImage = isOff ? "/images/DOWN_OFF.png" : images[activeImage].src;
   const currentAlt = isOff ? "Hanger Lamp - Off" : images[activeImage].alt;
+  const switchImage = isOff ? "/images/switch-down.png" : "/images/switch-up.png";
 
   return (
     <div 
@@ -128,8 +129,8 @@ export default function Home() {
           HL
         </a>
         <div className="flex items-center gap-12 text-base tracking-wide">
-          <a href="#images" className="hover:opacity-60 transition-opacity">
-            Images
+          <a href="#visuals" className="hover:opacity-60 transition-opacity">
+            Visuals
           </a>
           <a href="#specs" className="hover:opacity-60 transition-opacity">
             Specs
@@ -145,11 +146,12 @@ export default function Home() {
         
         {/* Image Panel - First on mobile (top), second on desktop (right) */}
         <div 
-          className={`w-full h-[50vh] md:w-1/2 md:h-screen md:sticky md:top-0 md:order-2 overflow-hidden transition-colors duration-500 ${
+          className={`w-full h-[50vh] md:w-1/2 md:h-screen md:sticky md:top-0 md:order-2 overflow-hidden transition-colors duration-500 flex flex-col ${
             isOff ? "bg-[#7F7D75]" : "bg-[#d9d5cd]"
           }`}
         >
-          <div className="relative w-full h-full">
+          {/* Main product image */}
+          <div className="relative flex-1">
             <Image
               src={currentImage}
               alt={currentAlt}
@@ -157,6 +159,23 @@ export default function Home() {
               className="object-contain transition-opacity duration-300"
               priority
             />
+          </div>
+          
+          {/* Switch below the image */}
+          <div className="flex justify-center pb-4 md:pb-8">
+            <button 
+              onClick={toggleLight}
+              className="w-20 h-24 md:w-24 md:h-28 overflow-hidden flex-shrink-0 transition-all duration-300 hover:scale-105"
+              aria-label={isOff ? "Turn light on" : "Turn light off"}
+            >
+              <Image
+                src={switchImage}
+                alt="Light switch"
+                width={96}
+                height={112}
+                className="w-full h-full object-contain transition-all duration-500"
+              />
+            </button>
           </div>
         </div>
 
@@ -175,57 +194,43 @@ export default function Home() {
               Bringing together two designs that have been around since the beginning of recorded history.
             </p>
 
-            {/* Thumbnail + Drag Slider */}
-            <div className="flex items-center gap-4 md:gap-6 mb-10 md:mb-16">
-              {/* Switch Thumbnail - Clickable to toggle light */}
-              <button 
-                onClick={toggleLight}
-                className={`w-14 h-14 md:w-16 md:h-16 border overflow-hidden flex-shrink-0 transition-all duration-300 hover:scale-105 ${
-                  isOff ? "border-neutral-500" : "border-neutral-300"
-                }`}
-                aria-label={isOff ? "Turn light on" : "Turn light off"}
-              >
-                <Image
-                  src="/images/switch_up.png"
-                  alt="Light switch"
-                  width={64}
-                  height={64}
-                  className={`w-full h-full object-cover transition-all duration-500 ${
-                    isOff ? "brightness-50" : "brightness-100"
-                  }`}
-                />
-              </button>
-
-              {/* Draggable Slider */}
+            {/* Draggable Slider */}
+            <div 
+              ref={trackRef}
+              className={`relative h-12 mb-10 md:mb-16 transition-opacity duration-500 ${
+                isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
+              }`}
+              onMouseDown={handleMouseDown}
+              onTouchStart={handleTouchStart}
+            >
+              {/* Track line */}
               <div 
-                ref={trackRef}
-                className={`relative flex-1 h-12 transition-opacity duration-500 ${
-                  isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
+                className={`absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 transition-colors duration-500 ${
+                  isOff ? "bg-neutral-500" : "bg-neutral-400"
+                }`} 
+              />
+              
+              {/* Draggable handle */}
+              <div 
+                className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-8 rounded-sm transition-all duration-300 ${
+                  isOff ? "bg-neutral-700" : "bg-black hover:scale-110"
                 }`}
-                onMouseDown={handleMouseDown}
-                onTouchStart={handleTouchStart}
-              >
-                {/* Track line */}
-                <div 
-                  className={`absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 transition-colors duration-500 ${
-                    isOff ? "bg-neutral-500" : "bg-neutral-400"
-                  }`} 
-                />
-                
-                {/* Draggable handle */}
-                <div 
-                  className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-8 rounded-sm transition-all duration-300 ${
-                    isOff ? "bg-neutral-700" : "bg-black hover:scale-110"
-                  }`}
-                  style={{ left: `${sliderPosition}%` }}
-                />
-              </div>
+                style={{ left: `${sliderPosition}%` }}
+              />
             </div>
 
             {/* CTA Button */}
-            <button className="w-full md:w-auto bg-[#c41e1e] text-white px-8 py-4 text-base tracking-wide hover:bg-[#a31818] transition-colors">
+            <button className="w-full md:w-auto bg-[#c41e1e] text-white px-8 py-4 text-base tracking-wide hover:bg-[#a31818] transition-colors mb-4">
               Batch 1: Sold out
             </button>
+
+            {/* Newsletter signup link */}
+            <a 
+              href="#signup" 
+              className="block text-base underline hover:opacity-60 transition-opacity cursor-pointer"
+            >
+              Sign up for batch 2
+            </a>
           </div>
         </div>
       </main>
