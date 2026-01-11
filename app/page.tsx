@@ -47,10 +47,10 @@ export default function Home() {
       }
     };
 
-    // Small delay before starting animation
+    // Delay before starting animation so users can see the initial state
     const timeout = setTimeout(() => {
       requestAnimationFrame(animate);
-    }, 500);
+    }, 1500);
 
     return () => clearTimeout(timeout);
   }, [isAnimating]);
