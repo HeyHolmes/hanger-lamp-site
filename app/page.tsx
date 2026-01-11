@@ -4,14 +4,14 @@ import Image from "next/image";
 import { useState, useRef, useCallback, useEffect } from "react";
 
 const images = [
-  { src: "/images/images_hires/_0.png", alt: "Hanger Lamp - 0" },
-  { src: "/images/images_hires/_1.png", alt: "Hanger Lamp - 1" },
-  { src: "/images/images_hires/_2.png", alt: "Hanger Lamp - 2" },
-  { src: "/images/images_hires/_3.png", alt: "Hanger Lamp - 3" },
-  { src: "/images/images_hires/_4.png", alt: "Hanger Lamp - 4" },
-  { src: "/images/images_hires/_5.png", alt: "Hanger Lamp - 5" },
-  { src: "/images/images_hires/_6.png", alt: "Hanger Lamp - 6" },
-  { src: "/images/images_hires/_7.png", alt: "Hanger Lamp - 7" },
+  { src: "/images/productshots/_0.webp", alt: "Hanger Lamp - 0" },
+  { src: "/images/productshots/_1.webp", alt: "Hanger Lamp - 1" },
+  { src: "/images/productshots/_2.webp", alt: "Hanger Lamp - 2" },
+  { src: "/images/productshots/_3.webp", alt: "Hanger Lamp - 3" },
+  { src: "/images/productshots/_4.webp", alt: "Hanger Lamp - 4" },
+  { src: "/images/productshots/_5.webp", alt: "Hanger Lamp - 5" },
+  { src: "/images/productshots/_6.webp", alt: "Hanger Lamp - 6" },
+  { src: "/images/productshots/_7.webp", alt: "Hanger Lamp - 7" },
 ];
 
 export default function Home() {
@@ -144,7 +144,7 @@ export default function Home() {
   }, [isDragging, handleVerticalDrag, handleHorizontalDrag]);
 
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
-  const currentImage = isOff ? "/images/images_hires/_dark_on.png" : images[activeImage].src;
+  const currentImage = isOff ? "/images/productshots/_dark_on.webp" : images[activeImage].src;
   const currentAlt = isOff ? "Hanger Lamp - Off" : images[activeImage].alt;
   const switchImage = isOff ? "/images/switch-down.png" : "/images/switch-up.png";
 
