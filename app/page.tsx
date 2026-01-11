@@ -228,14 +228,14 @@ export default function Home() {
       {/* Fixed Switch - Always visible at bottom center */}
       <button 
         onClick={toggleLight}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-16 h-20 md:w-20 md:h-24 overflow-hidden transition-all duration-300 hover:scale-105"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90px] h-[112px] md:w-[112px] md:h-[134px] overflow-hidden transition-all duration-300 hover:scale-105"
         aria-label={isOff ? "Turn light on" : "Turn light off"}
       >
         <Image
           src={switchImage}
           alt="Light switch"
-          width={80}
-          height={96}
+          width={112}
+          height={134}
           className="w-full h-full object-contain transition-all duration-500"
         />
       </button>
