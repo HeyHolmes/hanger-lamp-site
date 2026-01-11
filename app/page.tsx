@@ -120,7 +120,7 @@ export default function Home() {
         {/* Image Panel - First on mobile (top), second on desktop (right) */}
         <div 
           className={`w-full h-[50vh] md:w-1/2 md:h-screen md:sticky md:top-0 md:order-2 overflow-hidden transition-colors duration-500 ${
-            isOff ? "bg-[#6a6862]" : "bg-neutral-200"
+            isOff ? "bg-[#7F7D75]" : "bg-[#d9d5cd]"
           }`}
         >
           <div className="relative w-full h-full">
