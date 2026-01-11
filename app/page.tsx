@@ -279,18 +279,18 @@ export default function Home() {
             <div ref={mobileSwitchRef} className="flex-shrink-0">
               <button 
                 onClick={toggleLight}
-                className="w-[120px] h-[160px] overflow-hidden transition-all duration-300 hover:scale-105 relative"
+                className="w-36 h-36 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative"
                 aria-label={isOff ? "Turn light on" : "Turn light off"}
               >
                 <Image
                   src={switchImage}
                   alt="Light switch"
-                  width={120}
-                  height={160}
+                  width={144}
+                  height={144}
                   className="w-full h-full object-cover transition-all duration-500"
                 />
                 {isOff && (
-                  <div className="absolute inset-0 bg-black/40 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 rounded-full" />
                 )}
               </button>
             </div>
@@ -361,18 +361,18 @@ export default function Home() {
           {/* Light Switch - Desktop */}
           <button 
             onClick={toggleLight}
-            className="w-20 h-28 overflow-hidden transition-all duration-300 hover:scale-105 relative"
+            className="w-40 h-40 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative cursor-pointer"
             aria-label={isOff ? "Turn light on" : "Turn light off"}
           >
             <Image
               src={switchImage}
               alt="Light switch"
-              width={80}
-              height={112}
-              className="w-full h-full object-contain transition-all duration-500"
+              width={160}
+              height={160}
+              className="w-full h-full object-cover transition-all duration-500"
             />
             {isOff && (
-              <div className="absolute inset-0 bg-black/40 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 rounded-full" />
             )}
           </button>
         </div>
