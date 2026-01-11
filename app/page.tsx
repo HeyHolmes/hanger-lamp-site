@@ -10,18 +10,20 @@ const images = [
   { src: "/images/productshots/_3.webp", alt: "Hanger Lamp - 3" },
   { src: "/images/productshots/_4.webp", alt: "Hanger Lamp - 4" },
   { src: "/images/productshots/_5.webp", alt: "Hanger Lamp - 5" },
-  { src: "/images/productshots/_6.webp", alt: "Hanger Lamp - 6" },
   { src: "/images/productshots/_7.webp", alt: "Hanger Lamp - 7" },
 ];
 
 export default function Home() {
-  const [activeImage, setActiveImage] = useState(images.length - 1);
+  const [activeImage, setActiveImage] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isOff, setIsOff] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [showSliderHint, setShowSliderHint] = useState(false);
+  const [isSwitchFixed, setIsSwitchFixed] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
+  const heroSectionRef = useRef<HTMLElement>(null);
+  const mobileSwitchRef = useRef<HTMLDivElement>(null);
 
   // Intro animation
   useEffect(() => {
@@ -143,6 +145,64 @@ export default function Home() {
     };
   }, [isDragging, handleVerticalDrag, handleHorizontalDrag]);
 
+  // Scroll-linked scrubber effect
+  useEffect(() => {
+    if (isAnimating || isOff || isDragging) return;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      // Scroll range: from 0 to 14% of window height for full scrub
+      const scrollStart = 0;
+      const scrollEnd = windowHeight * 0.14;
+      
+      // Calculate scroll progress (0 to 1)
+      const scrollProgress = Math.max(0, Math.min(1, (scrollY - scrollStart) / (scrollEnd - scrollStart)));
+      
+      // Map to image index (0 to images.length - 1)
+      const imageIndex = Math.round(scrollProgress * (images.length - 1));
+      
+      setActiveImage(imageIndex);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isAnimating, isOff, isDragging]);
+
+  // Mobile switch sticky behavior
+  useEffect(() => {
+    const handleSwitchPosition = () => {
+      if (!mobileSwitchRef.current) return;
+      
+      const switchRect = mobileSwitchRef.current.getBoundingClientRect();
+      const threshold = 16; // top-4 = 1rem = 16px
+      
+      // If the switch's natural position would be above the threshold, fix it
+      if (switchRect.top <= threshold && !isSwitchFixed) {
+        setIsSwitchFixed(true);
+      }
+      
+      // Check if we should unfix - when scrolling back up
+      // We need to check the original position of the switch container
+      const scrollY = window.scrollY;
+      const switchOriginalTop = mobileSwitchRef.current.offsetTop;
+      
+      if (scrollY < switchOriginalTop - threshold && isSwitchFixed) {
+        setIsSwitchFixed(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleSwitchPosition, { passive: true });
+    
+    return () => {
+      window.removeEventListener("scroll", handleSwitchPosition);
+    };
+  }, [isSwitchFixed]);
+
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
   const currentImage = isOff ? "/images/productshots/_dark_on.webp" : images[activeImage].src;
   const currentAlt = isOff ? "Hanger Lamp - Off" : images[activeImage].alt;
@@ -174,103 +234,82 @@ export default function Home() {
 
       {/* ========== HERO SECTION ========== */}
       {/* Mobile Layout */}
-      <section className={`md:hidden min-h-screen flex flex-col pt-16 transition-colors duration-500 ${
+      <section className={`md:hidden min-h-screen flex flex-col pt-14 transition-colors duration-500 ${
         isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
       }`}>
         {/* Product Image - Top */}
-        <div className="relative w-full h-[50vh] flex-shrink-0 overflow-hidden">
+        <div className="relative w-full h-[48vh] flex-shrink-0 overflow-hidden">
           <Image
             src={currentImage}
             alt={currentAlt}
             fill
-            className="object-cover object-center transition-opacity duration-300 scale-150"
+            className="object-cover object-center transition-opacity duration-300 scale-125"
             priority
             sizes="100vw"
           />
           {/* Gradient fade at bottom */}
-          <div className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
+          <div className={`absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
             isOff ? "from-[#2a2a2a]" : "from-[#CCC5BD]"
           }`} />
         </div>
 
-        {/* Horizontal Slider */}
-        <div className="px-6 py-4">
-          <div 
-            ref={horizontalTrackRef}
-            className={`relative h-8 w-full transition-opacity duration-500 ${
-              isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
-            }`}
-            onMouseDown={(e) => handleMouseDown(e, true)}
-            onTouchStart={(e) => handleTouchStart(e, true)}
-          >
-            {/* Track line - horizontal */}
-            <div 
-              className={`absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 transition-colors duration-500 ${
-                isOff ? "bg-neutral-500" : "bg-black"
-              }`} 
-            />
-            
-            {/* Draggable handle */}
-            <div 
-              className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-4 transition-all duration-300 ${
-                isOff ? "bg-neutral-500" : "bg-[#b8a88a]"
-              }`}
-              style={{ left: `${sliderPosition}%` }}
-            />
-          </div>
-        </div>
-
-        {/* Content + Switch Row */}
-        <div className="flex-1 flex px-6 pb-6">
-          {/* Text Content */}
-          <div className={`flex-1 transition-colors duration-500 ${
+        {/* Content Area */}
+        <div className="flex-1 px-6 pt-4 pb-6">
+          {/* Title */}
+          <h1 className={`text-[36px] font-light tracking-tight leading-none mb-1 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
-            <h1 className="text-2xl font-normal tracking-tight mb-1">
-              Hanger Lamp
-            </h1>
-            <p className="text-lg mb-3">$700</p>
-            <p className={`text-sm leading-relaxed mb-6 transition-colors duration-500 ${
+            Hanger Lamp
+          </h1>
+          
+          {/* Price */}
+          <p className={`text-xl font-light mb-3 transition-colors duration-500 ${
+            isOff ? "text-neutral-200" : "text-black"
+          }`}>$700</p>
+          
+          {/* Description + Switch Row */}
+          <div className="flex gap-3 mb-4">
+            <p className={`flex-1 text-[15px] leading-relaxed transition-colors duration-500 ${
               isOff ? "text-neutral-300" : "text-neutral-700"
             }`}>
-              Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
+              teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
             </p>
-
-            {/* CTA Button */}
-            <button className="w-full bg-[#c41e1e] text-white px-6 py-4 text-sm tracking-wide hover:bg-[#a31818] transition-colors mb-3">
-              Batch 1: Sold out
-            </button>
-
-            {/* Newsletter signup link */}
-            <a 
-              href="#signup" 
-              className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer text-center ${
-                isOff ? "text-neutral-300" : "text-black"
-              }`}
-            >
-              Sign up for batch 2
-            </a>
+            
+            {/* Light Switch */}
+            <div ref={mobileSwitchRef} className="flex-shrink-0">
+              <button 
+                onClick={toggleLight}
+                className="w-[120px] h-[160px] overflow-hidden transition-all duration-300 hover:scale-105 relative"
+                aria-label={isOff ? "Turn light on" : "Turn light off"}
+              >
+                <Image
+                  src={switchImage}
+                  alt="Light switch"
+                  width={120}
+                  height={160}
+                  className="w-full h-full object-cover transition-all duration-500"
+                />
+                {isOff && (
+                  <div className="absolute inset-0 bg-black/40 transition-opacity duration-500" />
+                )}
+              </button>
+            </div>
           </div>
 
-          {/* Light Switch - Mobile */}
-          <div className="ml-4 flex-shrink-0">
-            <button 
-              onClick={toggleLight}
-              className="w-20 h-28 overflow-hidden transition-all duration-300 hover:scale-105 relative"
-              aria-label={isOff ? "Turn light on" : "Turn light off"}
-            >
-              <Image
-                src={switchImage}
-                alt="Light switch"
-                width={80}
-                height={112}
-                className="w-full h-full object-contain transition-all duration-500"
-              />
-              {isOff && (
-                <div className="absolute inset-0 bg-black/40 transition-opacity duration-500" />
-              )}
-            </button>
-          </div>
+          {/* CTA Button */}
+          <button className="w-full bg-[#c41e1e] text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-[#a31818] transition-colors mb-3">
+            Batch 1: Sold out
+          </button>
+
+          {/* Newsletter signup link */}
+          <a 
+            href="#signup" 
+            className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer text-center ${
+              isOff ? "text-neutral-300" : "text-black"
+            }`}
+          >
+            Sign up for batch 2
+          </a>
         </div>
       </section>
 
