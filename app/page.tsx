@@ -19,13 +19,14 @@ export default function Home() {
   const [isDragging, setIsDragging] = useState(false);
   const [isOff, setIsOff] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
+  const [showSliderHint, setShowSliderHint] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // Intro animation: step through each image with 0.5s per image
+  // Intro animation: step through each image with 0.45s per image (10% faster)
   useEffect(() => {
     if (!isAnimating) return;
 
-    const timePerImage = 500; // 0.5 seconds per image
+    const timePerImage = 450; // 0.45 seconds per image (10% faster)
     const startIndex = images.length - 1;
     let currentIndex = startIndex;
 
@@ -39,6 +40,10 @@ export default function Home() {
         if (currentIndex <= 0) {
           clearInterval(interval);
           setIsAnimating(false);
+          // Show the slider hint arrow after animation ends
+          setShowSliderHint(true);
+          // Hide the hint after 3 seconds
+          setTimeout(() => setShowSliderHint(false), 3000);
         }
       }, timePerImage);
     }, 750);
@@ -59,12 +64,14 @@ export default function Home() {
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (isOff || isAnimating) return;
+    setShowSliderHint(false); // Hide hint when user interacts
     setIsDragging(true);
     handleDrag(e.clientX);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (isOff || isAnimating) return;
+    setShowSliderHint(false); // Hide hint when user interacts
     setIsDragging(true);
     handleDrag(e.touches[0].clientX);
   };
@@ -178,28 +185,45 @@ export default function Home() {
             </p>
 
             {/* Draggable Slider */}
-            <div 
-              ref={trackRef}
-              className={`relative h-12 mb-10 md:mb-16 transition-opacity duration-500 ${
-                isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
-              }`}
-              onMouseDown={handleMouseDown}
-              onTouchStart={handleTouchStart}
-            >
-              {/* Track line */}
-              <div 
-                className={`absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 transition-colors duration-500 ${
-                  isOff ? "bg-neutral-500" : "bg-neutral-400"
-                }`} 
-              />
+            <div className="relative mb-10 md:mb-16">
+              {/* Slider hint arrow */}
+              {showSliderHint && (
+                <div className="absolute -top-8 left-0 flex items-center gap-2 animate-pulse">
+                  <span className="text-sm text-neutral-600">Drag to explore</span>
+                  <svg 
+                    className="w-4 h-4 text-neutral-600 animate-bounce" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </div>
+              )}
               
-              {/* Draggable handle */}
               <div 
-                className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-8 rounded-sm transition-all duration-300 ${
-                  isOff ? "bg-neutral-700" : "bg-black hover:scale-110"
+                ref={trackRef}
+                className={`relative h-12 transition-opacity duration-500 ${
+                  isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
                 }`}
-                style={{ left: `${sliderPosition}%` }}
-              />
+                onMouseDown={handleMouseDown}
+                onTouchStart={handleTouchStart}
+              >
+                {/* Track line */}
+                <div 
+                  className={`absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 transition-colors duration-500 ${
+                    isOff ? "bg-neutral-500" : "bg-neutral-400"
+                  }`} 
+                />
+                
+                {/* Draggable handle */}
+                <div 
+                  className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-8 rounded-sm transition-all duration-300 ${
+                    isOff ? "bg-neutral-700" : "bg-black hover:scale-110"
+                  }`}
+                  style={{ left: `${sliderPosition}%` }}
+                />
+              </div>
             </div>
 
             {/* CTA Button */}
