@@ -15,19 +15,20 @@ const images = [
 ];
 
 export default function Home() {
-  const [activeImage, setActiveImage] = useState(images.length - 1); // Start at bottom for animation
+  const [activeImage, setActiveImage] = useState(images.length - 1);
   const [isDragging, setIsDragging] = useState(false);
   const [isOff, setIsOff] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [showSliderHint, setShowSliderHint] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
+  const horizontalTrackRef = useRef<HTMLDivElement>(null);
 
-  // Intro animation: step through each image from bottom to top
+  // Intro animation
   useEffect(() => {
     if (!isAnimating) return;
 
     const timePerImage = 360;
-    let currentIndex = images.length - 1; // Start at bottom
+    let currentIndex = images.length - 1;
 
     const initialTimeout = setTimeout(() => {
       const interval = setInterval(() => {
@@ -47,10 +48,9 @@ export default function Home() {
     return () => clearTimeout(initialTimeout);
   }, [isAnimating]);
 
-  // Vertical slider drag handler
-  const handleDrag = useCallback((clientY: number) => {
+  // Vertical slider drag handler (desktop)
+  const handleVerticalDrag = useCallback((clientY: number) => {
     if (!trackRef.current) return;
-    
     const track = trackRef.current;
     const rect = track.getBoundingClientRect();
     const y = clientY - rect.top;
@@ -59,18 +59,37 @@ export default function Home() {
     setActiveImage(imageIndex);
   }, []);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  // Horizontal slider drag handler (mobile)
+  const handleHorizontalDrag = useCallback((clientX: number) => {
+    if (!horizontalTrackRef.current) return;
+    const track = horizontalTrackRef.current;
+    const rect = track.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const percentage = Math.max(0, Math.min(1, x / rect.width));
+    const imageIndex = Math.round(percentage * (images.length - 1));
+    setActiveImage(imageIndex);
+  }, []);
+
+  const handleMouseDown = (e: React.MouseEvent, isHorizontal: boolean) => {
     if (isOff || isAnimating) return;
     setShowSliderHint(false);
     setIsDragging(true);
-    handleDrag(e.clientY);
+    if (isHorizontal) {
+      handleHorizontalDrag(e.clientX);
+    } else {
+      handleVerticalDrag(e.clientY);
+    }
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = (e: React.TouchEvent, isHorizontal: boolean) => {
     if (isOff || isAnimating) return;
     setShowSliderHint(false);
     setIsDragging(true);
-    handleDrag(e.touches[0].clientY);
+    if (isHorizontal) {
+      handleHorizontalDrag(e.touches[0].clientX);
+    } else {
+      handleVerticalDrag(e.touches[0].clientY);
+    }
   };
 
   const toggleLight = () => {
@@ -80,13 +99,28 @@ export default function Home() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging) {
-        handleDrag(e.clientY);
+        // Check if we're on mobile (horizontal) or desktop (vertical)
+        if (horizontalTrackRef.current) {
+          const rect = horizontalTrackRef.current.getBoundingClientRect();
+          if (e.clientY > rect.top - 50 && e.clientY < rect.bottom + 50) {
+            handleHorizontalDrag(e.clientX);
+            return;
+          }
+        }
+        handleVerticalDrag(e.clientY);
       }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       if (isDragging) {
-        handleDrag(e.touches[0].clientY);
+        if (horizontalTrackRef.current) {
+          const rect = horizontalTrackRef.current.getBoundingClientRect();
+          if (e.touches[0].clientY > rect.top - 50 && e.touches[0].clientY < rect.bottom + 50) {
+            handleHorizontalDrag(e.touches[0].clientX);
+            return;
+          }
+        }
+        handleVerticalDrag(e.touches[0].clientY);
       }
     };
 
@@ -107,7 +141,7 @@ export default function Home() {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleEnd);
     };
-  }, [isDragging, handleDrag]);
+  }, [isDragging, handleVerticalDrag, handleHorizontalDrag]);
 
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
   const currentImage = isOff ? "/images/images_hires/_dark_on.png" : images[activeImage].src;
@@ -116,8 +150,126 @@ export default function Home() {
 
   return (
     <div className="font-sans select-none">
+      {/* ========== NAVIGATION ========== */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-start md:gap-16 px-4 md:px-12 py-4 md:py-8 transition-colors duration-500 ${
+        isOff ? "text-neutral-200" : "text-black"
+      }`}>
+        <a 
+          href="#" 
+          className={`text-lg md:text-xl font-medium tracking-wide border-b-2 pb-0.5 transition-colors duration-500 ${
+            isOff ? "border-neutral-200" : "border-black"
+          }`}
+        >
+          HL
+        </a>
+        <div className="flex items-center gap-6 md:gap-12 text-sm md:text-lg tracking-wide">
+          <a href="#specs" className="hover:opacity-60 transition-opacity">
+            Spec Sheet
+          </a>
+          <a href="#contact" className="hover:opacity-60 transition-opacity">
+            Contact
+          </a>
+        </div>
+      </nav>
+
       {/* ========== HERO SECTION ========== */}
-      <section className="relative h-screen">
+      {/* Mobile Layout */}
+      <section className="md:hidden min-h-screen flex flex-col pt-16">
+        {/* Product Image - Top */}
+        <div className="relative w-full h-[50vh] flex-shrink-0">
+          <Image
+            src={currentImage}
+            alt={currentAlt}
+            fill
+            className="object-cover transition-opacity duration-300"
+            priority
+            sizes="100vw"
+          />
+        </div>
+
+        {/* Horizontal Slider */}
+        <div className="px-6 py-4">
+          <div 
+            ref={horizontalTrackRef}
+            className={`relative h-8 w-full transition-opacity duration-500 ${
+              isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
+            }`}
+            onMouseDown={(e) => handleMouseDown(e, true)}
+            onTouchStart={(e) => handleTouchStart(e, true)}
+          >
+            {/* Track line - horizontal */}
+            <div 
+              className={`absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 transition-colors duration-500 ${
+                isOff ? "bg-neutral-500" : "bg-black"
+              }`} 
+            />
+            
+            {/* Draggable handle */}
+            <div 
+              className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-4 transition-all duration-300 ${
+                isOff ? "bg-neutral-500" : "bg-[#b8a88a]"
+              }`}
+              style={{ left: `${sliderPosition}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Content + Switch Row */}
+        <div className="flex-1 flex px-6 pb-6">
+          {/* Text Content */}
+          <div className={`flex-1 transition-colors duration-500 ${
+            isOff ? "text-neutral-200" : "text-black"
+          }`}>
+            <h1 className="text-2xl font-normal tracking-tight mb-1">
+              Hanger Lamp
+            </h1>
+            <p className="text-lg mb-3">$700</p>
+            <p className={`text-sm leading-relaxed mb-6 transition-colors duration-500 ${
+              isOff ? "text-neutral-300" : "text-neutral-700"
+            }`}>
+              Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
+            </p>
+
+            {/* CTA Button */}
+            <button className="w-full bg-[#c41e1e] text-white px-6 py-4 text-sm tracking-wide hover:bg-[#a31818] transition-colors mb-3">
+              Batch 1: Sold out
+            </button>
+
+            {/* Newsletter signup link */}
+            <a 
+              href="#signup" 
+              className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer text-center ${
+                isOff ? "text-neutral-300" : "text-black"
+              }`}
+            >
+              Sign up for batch 2
+            </a>
+          </div>
+
+          {/* Light Switch - Mobile */}
+          <div className="ml-4 flex-shrink-0">
+            <button 
+              onClick={toggleLight}
+              className="w-20 h-28 overflow-hidden transition-all duration-300 hover:scale-105 relative"
+              aria-label={isOff ? "Turn light on" : "Turn light off"}
+            >
+              <Image
+                src={switchImage}
+                alt="Light switch"
+                width={80}
+                height={112}
+                className="w-full h-full object-contain transition-all duration-500"
+              />
+              {isOff && (
+                <div className="absolute inset-0 bg-black/40 transition-opacity duration-500" />
+              )}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Desktop Layout */}
+      <section className="hidden md:block relative h-screen">
         {/* Full-screen background image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -129,28 +281,6 @@ export default function Home() {
             sizes="100vw"
           />
         </div>
-
-        {/* Navigation */}
-        <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center gap-16 px-12 py-8 transition-colors duration-500 ${
-          isOff ? "text-neutral-200" : "text-black"
-        }`}>
-          <a 
-            href="#" 
-            className={`text-xl font-medium tracking-wide border-b-2 pb-0.5 transition-colors duration-500 ${
-              isOff ? "border-neutral-200" : "border-black"
-            }`}
-          >
-            HL
-          </a>
-          <div className="flex items-center gap-12 text-lg tracking-wide">
-            <a href="#specs" className="hover:opacity-60 transition-opacity">
-              Spec Sheet
-            </a>
-            <a href="#contact" className="hover:opacity-60 transition-opacity">
-              Contact
-            </a>
-          </div>
-        </nav>
 
         {/* Content overlay - Left side */}
         <div className={`absolute left-12 top-1/2 -translate-y-1/2 z-10 max-w-xs transition-colors duration-500 ${
@@ -166,12 +296,10 @@ export default function Home() {
             Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
           </p>
 
-          {/* CTA Button */}
           <button className="bg-[#c41e1e] text-white px-6 py-3 text-sm tracking-wide hover:bg-[#a31818] transition-colors mb-4">
             Batch 1: Sold out
           </button>
 
-          {/* Newsletter signup link */}
           <a 
             href="#signup" 
             className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer ${
@@ -182,9 +310,8 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Vertical Slider - Right side, closer to lamp */}
+        {/* Vertical Slider - Desktop only */}
         <div className="absolute right-[22%] top-1/2 -translate-y-1/2 z-10">
-          {/* Slider hint */}
           {showSliderHint && (
             <div className="absolute -left-16 top-1/2 -translate-y-1/2 flex items-center gap-2 animate-pulse">
               <span className={`text-xs whitespace-nowrap transition-colors duration-500 ${
@@ -198,17 +325,15 @@ export default function Home() {
             className={`relative w-8 h-72 transition-opacity duration-500 ${
               isOff ? "opacity-30 cursor-not-allowed" : "cursor-grab active:cursor-grabbing"
             }`}
-            onMouseDown={handleMouseDown}
-            onTouchStart={handleTouchStart}
+            onMouseDown={(e) => handleMouseDown(e, false)}
+            onTouchStart={(e) => handleTouchStart(e, false)}
           >
-            {/* Track line - thin vertical black line */}
             <div 
               className={`absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 transition-colors duration-500 ${
                 isOff ? "bg-neutral-500" : "bg-black"
               }`} 
             />
             
-            {/* Draggable handle - rectangular tan/beige */}
             <div 
               className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-5 transition-all duration-300 ${
                 isOff ? "bg-neutral-500" : "bg-[#b8a88a] hover:scale-110"
@@ -217,18 +342,17 @@ export default function Home() {
             />
           </div>
         </div>
-
       </section>
 
       {/* ========== MOOD BOARD / COLLAGE SECTION ========== */}
-      <section id="visuals" className={`py-12 px-8 transition-colors duration-500 ${
+      <section id="visuals" className={`py-8 md:py-12 px-4 md:px-8 transition-colors duration-500 ${
         isOff ? "bg-[#2a2a2a]" : "bg-[#f5f4f0]"
       }`}>
-        {/* Asymmetric Grid - Hardsun-inspired layout */}
-        <div className="max-w-7xl mx-auto grid grid-cols-12 gap-4 auto-rows-[200px]">
+        {/* Mobile: Single column / Desktop: 12-column grid */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:auto-rows-[200px]">
           
-          {/* Large featured image - spans 8 cols, 2 rows */}
-          <div className="col-span-8 row-span-2 relative overflow-hidden group">
+          {/* Large featured image */}
+          <div className="md:col-span-8 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
             <Image
               src={isOff ? "/images/pholder_dark_1.JPG" : "/images/pholder_light_1.png"}
               alt="Hanger Lamp lifestyle"
@@ -237,14 +361,14 @@ export default function Home() {
             />
           </div>
 
-          {/* Text block - spans 4 cols, 1 row */}
-          <div className={`col-span-4 row-span-1 p-8 flex flex-col justify-center transition-colors duration-500 ${
+          {/* Materials text block */}
+          <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex flex-col justify-center transition-colors duration-500 ${
             isOff ? "bg-[#3a3a3a] text-neutral-200" : "bg-[#e8e6e0] text-black"
           }`}>
             <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
               isOff ? "text-neutral-400" : "text-neutral-500"
             }`}>MATERIALS</h3>
-            <p className="text-lg font-light leading-relaxed">
+            <p className="text-base md:text-lg font-light leading-relaxed">
               Teak<br />
               Stainless Steel Hardware<br />
               6061 Aluminum<br />
@@ -252,8 +376,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Small image - spans 4 cols, 1 row */}
-          <div className="col-span-4 row-span-1 relative overflow-hidden group">
+          {/* Small image */}
+          <div className="md:col-span-4 md:row-span-1 relative overflow-hidden group h-48 md:h-auto">
             <Image
               src="/images/pholder_light_3.png"
               alt="Hanger Lamp detail"
@@ -262,8 +386,8 @@ export default function Home() {
             />
           </div>
 
-          {/* Video block - spans 6 cols, 2 rows */}
-          <div className="col-span-6 row-span-2 relative overflow-hidden">
+          {/* Video block */}
+          <div className="md:col-span-6 md:row-span-2 relative overflow-hidden h-64 md:h-auto">
             <video
               autoPlay
               loop
@@ -276,8 +400,8 @@ export default function Home() {
             </video>
           </div>
 
-          {/* Specs text block - spans 3 cols, 2 rows */}
-          <div className="col-span-3 row-span-2 bg-[#2a2a2a] text-white p-8 flex flex-col justify-between">
+          {/* Specs text block */}
+          <div id="specs" className="md:col-span-3 md:row-span-2 bg-[#2a2a2a] text-white p-6 md:p-8 flex flex-col justify-between">
             <div>
               <h3 className="text-sm font-medium tracking-widest text-neutral-400 mb-4">SPECIFICATIONS</h3>
               <div className="space-y-3 text-sm">
@@ -308,8 +432,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Medium image - spans 3 cols, 2 rows */}
-          <div className="col-span-3 row-span-2 relative overflow-hidden group">
+          {/* Medium image */}
+          <div className="md:col-span-3 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
             <Image
               src={isOff ? "/images/pholder_dark_2.JPG" : "/images/pholder_light_4.png"}
               alt="Hanger Lamp in use"
@@ -318,17 +442,17 @@ export default function Home() {
             />
           </div>
 
-          {/* Quote block - spans 4 cols, 1 row */}
-          <div className={`col-span-4 row-span-1 p-8 flex items-center transition-colors duration-500 ${
+          {/* Quote block */}
+          <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex items-center transition-colors duration-500 ${
             isOff ? "bg-[#4a4a4a] text-neutral-200" : "bg-[#c9c4b8] text-black"
           }`}>
-            <p className="text-lg italic font-light">
+            <p className="text-base md:text-lg italic font-light">
               "Form follows function—but here, they dance together."
             </p>
           </div>
 
-          {/* Image - spans 4 cols, 2 rows */}
-          <div className="col-span-4 row-span-2 relative overflow-hidden group">
+          {/* Close-up image */}
+          <div className="md:col-span-4 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
             <Image
               src="/images/pholder_light_5.png"
               alt="Hanger Lamp close-up"
@@ -337,8 +461,8 @@ export default function Home() {
             />
           </div>
 
-          {/* Care text block - spans 4 cols, 1 row */}
-          <div className={`col-span-4 row-span-1 p-8 flex flex-col justify-center transition-colors duration-500 ${
+          {/* Care text block */}
+          <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex flex-col justify-center transition-colors duration-500 ${
             isOff ? "bg-[#3a3a3a]" : "bg-white"
           }`}>
             <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
@@ -351,8 +475,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Large final image - spans 8 cols, 2 rows */}
-          <div className="col-span-8 row-span-2 relative overflow-hidden group">
+          {/* Large final image */}
+          <div className="md:col-span-8 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
             <Image
               src="/images/pholder_light_6.png"
               alt="Hanger Lamp environment"
@@ -361,15 +485,13 @@ export default function Home() {
             />
           </div>
 
-          {/* Final CTA block - spans 4 cols, 2 rows */}
-          <div className={`col-span-4 row-span-2 p-8 flex flex-col justify-center items-start transition-colors duration-500 ${
-            isOff ? "bg-[#1a1a1a] text-white" : "bg-[#1a1a1a] text-white"
-          }`}>
-            <h3 className="text-2xl font-light mb-4">Ready to hang?</h3>
+          {/* Final CTA block */}
+          <div className="md:col-span-4 md:row-span-2 p-6 md:p-8 flex flex-col justify-center items-start bg-[#1a1a1a] text-white">
+            <h3 className="text-xl md:text-2xl font-light mb-4">Ready to hang?</h3>
             <p className="text-neutral-400 text-sm mb-6">
               Batch 2 ships Spring 2026. Join the waitlist to be first in line.
             </p>
-            <button className={`px-6 py-3 text-sm tracking-wide transition-colors ${
+            <button className={`w-full md:w-auto px-6 py-3 text-sm tracking-wide transition-colors ${
               isOff ? "bg-neutral-600 text-white hover:bg-neutral-500" : "bg-white text-black hover:bg-neutral-200"
             }`}>
               Join Waitlist
@@ -380,8 +502,8 @@ export default function Home() {
       </section>
 
       {/* ========== FOOTER ========== */}
-      <footer id="contact" className="bg-[#1a1a1a] text-white py-16 px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-3 gap-12">
+      <footer id="contact" className="bg-[#1a1a1a] text-white py-12 md:py-16 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           <div>
             <h4 className="text-xl font-medium mb-4">Hanger Lamp</h4>
             <p className="text-neutral-400 text-sm leading-relaxed">
@@ -405,15 +527,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-neutral-800 text-neutral-500 text-xs">
+        <div className="max-w-7xl mx-auto mt-8 md:mt-12 pt-6 md:pt-8 border-t border-neutral-800 text-neutral-500 text-xs">
           © 2026 Hanger Lamp. All rights reserved.
         </div>
       </footer>
 
-      {/* ========== FIXED LIGHT SWITCH ========== */}
+      {/* ========== FIXED LIGHT SWITCH (Desktop only) ========== */}
       <button 
         onClick={toggleLight}
-        className="fixed bottom-8 right-8 z-50 w-28 h-40 overflow-hidden transition-all duration-300 hover:scale-105"
+        className="hidden md:block fixed bottom-8 right-8 z-50 w-28 h-40 overflow-hidden transition-all duration-300 hover:scale-105"
         aria-label={isOff ? "Turn light on" : "Turn light off"}
       >
         <Image
@@ -423,7 +545,6 @@ export default function Home() {
           height={160}
           className="w-full h-full object-contain transition-all duration-500"
         />
-        {/* Dark overlay when lights are off */}
         {isOff && (
           <div className="absolute inset-0 bg-black/40 transition-opacity duration-500" />
         )}
