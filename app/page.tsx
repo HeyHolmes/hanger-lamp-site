@@ -21,38 +21,29 @@ export default function Home() {
   const [isAnimating, setIsAnimating] = useState(true);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // Intro animation: slide from right to left over 3 seconds
+  // Intro animation: step through each image with 0.5s per image
   useEffect(() => {
     if (!isAnimating) return;
 
-    const duration = 5000; // 5 seconds
-    const startTime = Date.now();
+    const timePerImage = 500; // 0.5 seconds per image
     const startIndex = images.length - 1;
-    const endIndex = 0;
-
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Easing function for smooth deceleration
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      
-      const currentIndex = Math.round(startIndex - (startIndex - endIndex) * easeOut);
-      setActiveImage(currentIndex);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setIsAnimating(false);
-      }
-    };
+    let currentIndex = startIndex;
 
     // Delay before starting animation so users can see the initial state
-    const timeout = setTimeout(() => {
-      requestAnimationFrame(animate);
+    const initialTimeout = setTimeout(() => {
+      const interval = setInterval(() => {
+        currentIndex--;
+        if (currentIndex >= 0) {
+          setActiveImage(currentIndex);
+        }
+        if (currentIndex <= 0) {
+          clearInterval(interval);
+          setIsAnimating(false);
+        }
+      }, timePerImage);
     }, 1500);
 
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(initialTimeout);
   }, [isAnimating]);
 
   const handleDrag = useCallback((clientX: number) => {
