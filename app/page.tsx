@@ -89,9 +89,9 @@ export default function Home() {
         isOff ? "bg-[#7F7D75] text-[#1a1a1a]" : "bg-[#d9d5cd] text-[#1a1a1a]"
       }`}
     >
-      {/* Navigation */}
+      {/* Navigation - Hidden on mobile, visible on desktop */}
       <nav 
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center gap-16 px-12 py-6 transition-colors duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center gap-16 px-12 py-6 transition-colors duration-500 ${
           isOff ? "bg-[#7F7D75]" : "bg-[#d9d5cd]"
         }`}
       >
@@ -114,17 +114,35 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="flex min-h-screen">
-        {/* Left Panel - Product Info */}
-        <div className="w-1/2 flex flex-col justify-center px-16 py-24 pt-32">
-          <div className="max-w-md">
-            <h1 className="text-4xl font-normal tracking-tight mb-3">
+      {/* Main Content - Stack on mobile, side-by-side on desktop */}
+      <main className="flex flex-col md:flex-row min-h-screen">
+        
+        {/* Image Panel - First on mobile (top), second on desktop (right) */}
+        <div 
+          className={`w-full h-[50vh] md:w-1/2 md:h-screen md:sticky md:top-0 md:order-2 overflow-hidden transition-colors duration-500 ${
+            isOff ? "bg-[#6a6862]" : "bg-neutral-200"
+          }`}
+        >
+          <div className="relative w-full h-full">
+            <Image
+              src={currentImage}
+              alt={currentAlt}
+              fill
+              className="object-contain transition-opacity duration-300"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Content Panel - Second on mobile (below image), first on desktop (left) */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center px-6 py-10 md:px-16 md:py-24 md:pt-32 md:order-1">
+          <div className="max-w-md mx-auto md:mx-0">
+            <h1 className="text-3xl md:text-4xl font-normal tracking-tight mb-2 md:mb-3">
               Hanger Lamp
             </h1>
-            <p className="text-xl mb-6">$700</p>
+            <p className="text-lg md:text-xl mb-4 md:mb-6">$700</p>
             <p 
-              className={`text-base leading-relaxed mb-12 max-w-xs transition-colors duration-500 ${
+              className={`text-sm md:text-base leading-relaxed mb-8 md:mb-12 max-w-xs transition-colors duration-500 ${
                 isOff ? "text-neutral-800" : "text-neutral-600"
               }`}
             >
@@ -132,11 +150,11 @@ export default function Home() {
             </p>
 
             {/* Thumbnail + Drag Slider */}
-            <div className="flex items-center gap-6 mb-16">
+            <div className="flex items-center gap-4 md:gap-6 mb-10 md:mb-16">
               {/* Switch Thumbnail - Clickable to toggle light */}
               <button 
                 onClick={toggleLight}
-                className={`w-16 h-16 border overflow-hidden flex-shrink-0 transition-all duration-300 hover:scale-105 ${
+                className={`w-14 h-14 md:w-16 md:h-16 border overflow-hidden flex-shrink-0 transition-all duration-300 hover:scale-105 ${
                   isOff ? "border-neutral-500" : "border-neutral-300"
                 }`}
                 aria-label={isOff ? "Turn light on" : "Turn light off"}
@@ -179,31 +197,16 @@ export default function Home() {
             </div>
 
             {/* CTA Button */}
-            <button className="bg-[#c41e1e] text-white px-8 py-4 text-base tracking-wide hover:bg-[#a31818] transition-colors">
+            <button className="w-full md:w-auto bg-[#c41e1e] text-white px-8 py-4 text-base tracking-wide hover:bg-[#a31818] transition-colors">
               Batch 1: Sold out
             </button>
           </div>
-        </div>
-
-        {/* Right Panel - Carousel Image */}
-        <div 
-          className={`w-1/2 h-screen sticky top-0 overflow-hidden transition-colors duration-500 ${
-            isOff ? "bg-[#6a6862]" : "bg-neutral-200"
-          }`}
-        >
-          <Image
-            src={currentImage}
-            alt={currentAlt}
-            fill
-            className="object-contain transition-opacity duration-300"
-            priority
-          />
         </div>
       </main>
 
       {/* Footer Bar */}
       <div 
-        className={`h-16 transition-colors duration-500 ${
+        className={`h-12 md:h-16 transition-colors duration-500 ${
           isOff ? "bg-[#5a5852]" : "bg-[#a8a49c]"
         }`} 
       />
