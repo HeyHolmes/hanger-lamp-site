@@ -19,11 +19,9 @@ export default function Home() {
   const [isOff, setIsOff] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showSliderHint, setShowSliderHint] = useState(false);
-  const [isSwitchFixed, setIsSwitchFixed] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
-  const mobileSwitchRef = useRef<HTMLDivElement>(null);
 
   // Intro animation
   useEffect(() => {
@@ -173,36 +171,6 @@ export default function Home() {
     };
   }, [isAnimating, isOff, isDragging]);
 
-  // Mobile switch sticky behavior
-  useEffect(() => {
-    const handleSwitchPosition = () => {
-      if (!mobileSwitchRef.current) return;
-      
-      const switchRect = mobileSwitchRef.current.getBoundingClientRect();
-      const threshold = 16; // top-4 = 1rem = 16px
-      
-      // If the switch's natural position would be above the threshold, fix it
-      if (switchRect.top <= threshold && !isSwitchFixed) {
-        setIsSwitchFixed(true);
-      }
-      
-      // Check if we should unfix - when scrolling back up
-      // We need to check the original position of the switch container
-      const scrollY = window.scrollY;
-      const switchOriginalTop = mobileSwitchRef.current.offsetTop;
-      
-      if (scrollY < switchOriginalTop - threshold && isSwitchFixed) {
-        setIsSwitchFixed(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleSwitchPosition, { passive: true });
-    
-    return () => {
-      window.removeEventListener("scroll", handleSwitchPosition);
-    };
-  }, [isSwitchFixed]);
-
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
   const currentImage = isOff ? "/images/productshots/_dark_on.webp" : images[activeImage].src;
   const currentAlt = isOff ? "Hanger Lamp - Off" : images[activeImage].alt;
@@ -267,34 +235,12 @@ export default function Home() {
             isOff ? "text-neutral-200" : "text-black"
           }`}>$700</p>
           
-          {/* Description + Switch Row */}
-          <div className="flex gap-3 mb-4">
-            <p className={`flex-1 text-[15px] leading-relaxed transition-colors duration-500 ${
-              isOff ? "text-neutral-300" : "text-neutral-700"
-            }`}>
-              teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
-            </p>
-            
-            {/* Light Switch */}
-            <div ref={mobileSwitchRef} className="flex-shrink-0">
-              <button 
-                onClick={toggleLight}
-                className="w-36 h-36 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative"
-                aria-label={isOff ? "Turn light on" : "Turn light off"}
-              >
-                <Image
-                  src={switchImage}
-                  alt="Light switch"
-                  width={144}
-                  height={144}
-                  className="w-full h-full object-cover transition-all duration-500"
-                />
-                {isOff && (
-                  <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 rounded-full" />
-                )}
-              </button>
-            </div>
-          </div>
+          {/* Description */}
+          <p className={`text-[15px] leading-relaxed mb-4 transition-colors duration-500 ${
+            isOff ? "text-neutral-300" : "text-neutral-700"
+          }`}>
+            teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
+          </p>
 
           {/* CTA Button */}
           <button className="w-full bg-[#c41e1e] text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-[#a31818] transition-colors mb-3">
@@ -351,30 +297,12 @@ export default function Home() {
 
           <a 
             href="#signup" 
-            className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer mb-6 ${
+            className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer ${
               isOff ? "text-neutral-300" : "text-black"
             }`}
           >
             Sign up for batch 2
           </a>
-
-          {/* Light Switch - Desktop */}
-          <button 
-            onClick={toggleLight}
-            className="w-40 h-40 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative cursor-pointer"
-            aria-label={isOff ? "Turn light on" : "Turn light off"}
-          >
-            <Image
-              src={switchImage}
-              alt="Light switch"
-              width={160}
-              height={160}
-              className="w-full h-full object-cover transition-all duration-500"
-            />
-            {isOff && (
-              <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 rounded-full" />
-            )}
-          </button>
         </div>
 
         {/* Vertical Slider - Desktop only */}
@@ -612,6 +540,24 @@ export default function Home() {
           © 2026 Hanger Lamp. All rights reserved.
         </div>
       </footer>
+
+      {/* Sticky Light Switch - Both Desktop and Mobile */}
+      <button 
+        onClick={toggleLight}
+        className="fixed top-20 right-4 md:top-24 md:right-8 z-40 w-[115px] h-[115px] md:w-32 md:h-32 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 cursor-pointer"
+        aria-label={isOff ? "Turn light on" : "Turn light off"}
+      >
+        <Image
+          src={switchImage}
+          alt="Light switch"
+          width={128}
+          height={128}
+          className="w-full h-full object-cover transition-all duration-500"
+        />
+        {isOff && (
+          <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 rounded-full" />
+        )}
+      </button>
     </div>
   );
 }
