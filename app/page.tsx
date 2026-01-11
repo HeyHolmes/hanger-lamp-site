@@ -41,7 +41,7 @@ export default function Home() {
           setIsAnimating(false);
         }
       }, timePerImage);
-    }, 1500);
+    }, 750);
 
     return () => clearTimeout(initialTimeout);
   }, [isAnimating]);
