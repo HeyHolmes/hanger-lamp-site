@@ -279,7 +279,8 @@ export default function Home() {
             <div ref={mobileSwitchRef} className="flex-shrink-0">
               <button 
                 onClick={toggleLight}
-                className="w-[122px] h-[122px] rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative"
+                className="rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative"
+                style={{ width: '122px', height: '122px' }}
                 aria-label={isOff ? "Turn light on" : "Turn light off"}
               >
                 <Image
@@ -361,7 +362,8 @@ export default function Home() {
           {/* Light Switch - Desktop */}
           <button 
             onClick={toggleLight}
-            className="w-[136px] h-[136px] rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative cursor-pointer"
+            className="rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative cursor-pointer"
+            style={{ width: '136px', height: '136px' }}
             aria-label={isOff ? "Turn light on" : "Turn light off"}
           >
             <Image
