@@ -298,7 +298,7 @@ export default function Home() {
           </div>
 
           {/* CTA Button */}
-          <button className="w-full bg-[#c41e1e] text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-[#a31818] transition-colors mb-3">
+          <button className="w-full bg-black text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-neutral-800 transition-colors mb-3">
             Batch 1: Sold out
           </button>
 
@@ -346,7 +346,7 @@ export default function Home() {
             Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
           </p>
 
-          <button className="bg-[#c41e1e] text-white px-6 py-3 text-sm tracking-wide hover:bg-[#a31818] transition-colors mb-4">
+          <button className="bg-black text-white px-6 py-3 text-sm tracking-wide hover:bg-neutral-800 transition-colors mb-4">
             Batch 1: Sold out
           </button>
 
