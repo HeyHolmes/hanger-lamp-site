@@ -206,7 +206,6 @@ export default function Home() {
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
   const currentImage = isOff ? "/images/productshots/_dark_on.webp" : images[activeImage].src;
   const currentAlt = isOff ? "Hanger Lamp - Off" : images[activeImage].alt;
-  const switchImage = isOff ? "/images/switch-down.png" : "/images/switch-up.png";
 
   return (
     <div className="font-sans select-none bg-[#CCC5BD]">
@@ -279,20 +278,16 @@ export default function Home() {
             <div ref={mobileSwitchRef} className="flex-shrink-0">
               <button 
                 onClick={toggleLight}
-                className="rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative"
-                style={{ width: '122px', height: '122px' }}
+                className={`relative w-16 h-32 rounded-full transition-all duration-300 ${
+                  isOff ? "bg-neutral-700" : "bg-neutral-300"
+                }`}
                 aria-label={isOff ? "Turn light on" : "Turn light off"}
               >
-                <Image
-                  src={switchImage}
-                  alt="Light switch"
-                  width={122}
-                  height={122}
-                  className="w-full h-full object-cover transition-all duration-500"
+                <div 
+                  className={`absolute w-12 h-12 rounded-full bg-white shadow-md transition-all duration-300 left-1/2 -translate-x-1/2 ${
+                    isOff ? "top-2" : "bottom-2"
+                  }`}
                 />
-                {isOff && (
-                  <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 rounded-full" />
-                )}
               </button>
             </div>
           </div>
@@ -362,20 +357,16 @@ export default function Home() {
           {/* Light Switch - Desktop */}
           <button 
             onClick={toggleLight}
-            className="rounded-full overflow-hidden transition-all duration-300 hover:scale-105 relative cursor-pointer"
-            style={{ width: '136px', height: '136px' }}
+            className={`relative w-16 h-32 rounded-full transition-all duration-300 ${
+              isOff ? "bg-neutral-700" : "bg-neutral-300"
+            }`}
             aria-label={isOff ? "Turn light on" : "Turn light off"}
           >
-            <Image
-              src={switchImage}
-              alt="Light switch"
-              width={136}
-              height={136}
-              className="w-full h-full object-cover transition-all duration-500"
+            <div 
+              className={`absolute w-12 h-12 rounded-full bg-white shadow-md transition-all duration-300 left-1/2 -translate-x-1/2 ${
+                isOff ? "top-2" : "bottom-2"
+              }`}
             />
-            {isOff && (
-              <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 rounded-full" />
-            )}
           </button>
         </div>
 
