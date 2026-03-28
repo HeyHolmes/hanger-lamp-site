@@ -244,7 +244,7 @@ export default function Home() {
             fill
             className="object-cover object-center transition-opacity duration-300 scale-125"
             priority
-            sizes="100vw"
+            sizes="200vw"
           />
           {/* Gradient fade at bottom */}
           <div className={`absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
