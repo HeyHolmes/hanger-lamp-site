@@ -288,7 +288,7 @@ export default function Home() {
           {/* Price */}
           <p className={`text-xl font-light mb-3 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
-          }`}>$700</p>
+          }`}>$███</p>
           
           {/* Description + Switch Row */}
           <div className="flex gap-3 mb-4">
@@ -316,17 +316,14 @@ export default function Home() {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <button className="w-full bg-black text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-neutral-800 transition-colors mb-3">
+          {/* CTA Buttons */}
+          <button disabled className="w-full bg-neutral-400 text-white px-6 py-4 text-base font-normal tracking-wide cursor-not-allowed mb-3">
             Batch 1: Sold out
           </button>
 
-          {/* Newsletter signup link */}
-          <a 
-            href="#signup" 
-            className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer text-center ${
-              isOff ? "text-neutral-300" : "text-black"
-            }`}
+          <a
+            href="#signup"
+            className="block w-full bg-black text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-neutral-800 transition-colors text-center"
           >
             Sign up for batch 2
           </a>
@@ -373,22 +370,20 @@ export default function Home() {
           <h1 className="text-3xl font-normal tracking-tight mb-2">
             Hanger Lamp
           </h1>
-          <p className="text-lg mb-4">$700</p>
+          <p className="text-lg mb-4">$███</p>
           <p className={`text-sm leading-relaxed mb-8 transition-colors duration-500 ${
             isOff ? "text-neutral-300" : "text-neutral-700"
           }`}>
             Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
           </p>
 
-          <button className="bg-black text-white px-6 py-3 text-sm tracking-wide hover:bg-neutral-800 transition-colors mb-4">
+          <button disabled className="bg-neutral-400 text-white px-6 py-3 text-sm tracking-wide cursor-not-allowed mb-3">
             Batch 1: Sold out
           </button>
 
-          <a 
-            href="#signup" 
-            className={`block text-sm underline hover:opacity-60 transition-all cursor-pointer mb-6 ${
-              isOff ? "text-neutral-300" : "text-black"
-            }`}
+          <a
+            href="#signup"
+            className="block bg-black text-white px-6 py-3 text-sm tracking-wide hover:bg-neutral-800 transition-colors text-center mb-6"
           >
             Sign up for batch 2
           </a>
