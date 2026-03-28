@@ -413,7 +413,7 @@ export default function Home() {
           {/* Large featured image */}
           <div className="md:col-span-8 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
             <Image
-              src={isOff ? "/images/pholder_dark_1.JPG" : "/images/pholder_light_1.png"}
+              src={isOff ? "/images/gallery/inside-lights-off.JPG" : "/images/gallery/inside-lots-of-clothes-top-shot.JPG"}
               alt="Hanger Lamp lifestyle"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -438,25 +438,21 @@ export default function Home() {
           {/* Small image */}
           <div className="md:col-span-4 md:row-span-1 relative overflow-hidden group h-48 md:h-auto">
             <Image
-              src="/images/pholder_light_3.png"
-              alt="Hanger Lamp detail"
+              src="/images/gallery/close-up-shade.JPG"
+              alt="Hanger Lamp shade detail"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
 
-          {/* Video block */}
-          <div className="md:col-span-6 md:row-span-2 relative overflow-hidden h-64 md:h-auto">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            >
-              <source src="/images/pholder_light_2.MOV" type="video/quicktime" />
-              <source src="/images/pholder_light_2.MOV" type="video/mp4" />
-            </video>
+          {/* Outdoor lifestyle image */}
+          <div className="md:col-span-6 md:row-span-2 relative overflow-hidden h-64 md:h-auto group">
+            <Image
+              src="/images/gallery/outside-florida-surf.JPG"
+              alt="Hanger Lamp outdoor surf"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
           </div>
 
           {/* Specs text block */}
@@ -508,7 +504,7 @@ export default function Home() {
           {/* Medium image */}
           <div className="md:col-span-3 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
             <Image
-              src={isOff ? "/images/pholder_dark_2.JPG" : "/images/pholder_light_4.png"}
+              src={isOff ? "/images/gallery/lights-off-push.JPG" : "/images/gallery/outside-fins-sauna.png"}
               alt="Hanger Lamp in use"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -527,8 +523,8 @@ export default function Home() {
           {/* Close-up image */}
           <div className="md:col-span-4 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
             <Image
-              src="/images/pholder_light_5.png"
-              alt="Hanger Lamp close-up"
+              src="/images/gallery/close-up-handle.JPG"
+              alt="Hanger Lamp handle close-up"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -551,8 +547,8 @@ export default function Home() {
           {/* Large final image */}
           <div className="md:col-span-8 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
             <Image
-              src="/images/pholder_light_6.png"
-              alt="Hanger Lamp environment"
+              src="/images/gallery/outside-snow-mammoth.JPG"
+              alt="Hanger Lamp in snow environment"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
