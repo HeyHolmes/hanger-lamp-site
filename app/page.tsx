@@ -392,7 +392,7 @@ export default function Home() {
           <button 
             onClick={toggleLight}
             className={`relative w-16 h-32 rounded-full transition-all duration-300 ${
-              isOff ? "bg-neutral-700" : "bg-neutral-500"
+              isOff ? "bg-neutral-700" : "bg-neutral-800"
             }`}
             aria-label={isOff ? "Turn light on" : "Turn light off"}
           >
