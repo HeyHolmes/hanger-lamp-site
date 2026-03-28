@@ -253,23 +253,22 @@ export default function Home() {
               src={img.src}
               alt={img.alt}
               fill
+              unoptimized
               className={`object-cover object-center scale-125 ${
                 !isOff && activeImage === i ? "opacity-100" : "opacity-0"
               }`}
               priority
-              sizes="200vw"
-
             />
           ))}
           <Image
             src="/images/productshots/_dark_on.webp"
             alt="Hanger Lamp - Off"
             fill
+            unoptimized
             className={`object-cover object-center scale-125 ${
               isOff ? "opacity-100" : "opacity-0"
             }`}
             priority
-            sizes="200vw"
           />
           {/* Gradient fade at bottom */}
           <div className={`absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
@@ -344,23 +343,22 @@ export default function Home() {
               src={img.src}
               alt={img.alt}
               fill
+              unoptimized
               className={`object-cover ${
                 !isOff && activeImage === i ? "opacity-100" : "opacity-0"
               }`}
               priority
-              sizes="100vw"
-
             />
           ))}
           <Image
             src="/images/productshots/_dark_on.webp"
             alt="Hanger Lamp - Off"
             fill
+            unoptimized
             className={`object-cover ${
               isOff ? "opacity-100" : "opacity-0"
             }`}
             priority
-            sizes="100vw"
           />
           {/* Gradient fade at bottom */}
           <div className={`absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
