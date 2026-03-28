@@ -203,8 +203,6 @@ export default function Home() {
   }, [isSwitchFixed]);
 
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
-  const currentImage = isOff ? "/images/productshots/_dark_on.webp" : images[activeImage].src;
-  const currentAlt = isOff ? "Hanger Lamp - Off" : images[activeImage].alt;
 
   return (
     <div className="font-sans select-none bg-[#CCC5BD]">
@@ -234,11 +232,26 @@ export default function Home() {
       }`}>
         {/* Product Image - Top */}
         <div className="relative w-full h-[48vh] flex-shrink-0 overflow-hidden">
+          {images.map((img, i) => (
+            <Image
+              key={img.src}
+              src={img.src}
+              alt={img.alt}
+              fill
+              className={`object-cover object-center scale-125 transition-opacity duration-150 ${
+                !isOff && activeImage === i ? "opacity-100" : "opacity-0"
+              }`}
+              priority
+              sizes="200vw"
+            />
+          ))}
           <Image
-            src={currentImage}
-            alt={currentAlt}
+            src="/images/productshots/_dark_on.webp"
+            alt="Hanger Lamp - Off"
             fill
-            className="object-cover object-center transition-opacity duration-300 scale-125"
+            className={`object-cover object-center scale-125 transition-opacity duration-150 ${
+              isOff ? "opacity-100" : "opacity-0"
+            }`}
             priority
             sizes="200vw"
           />
@@ -309,11 +322,26 @@ export default function Home() {
       <section className="hidden md:block relative h-screen">
         {/* Full-screen background image */}
         <div className="absolute inset-0 z-0">
+          {images.map((img, i) => (
+            <Image
+              key={img.src}
+              src={img.src}
+              alt={img.alt}
+              fill
+              className={`object-cover transition-opacity duration-150 ${
+                !isOff && activeImage === i ? "opacity-100" : "opacity-0"
+              }`}
+              priority
+              sizes="100vw"
+            />
+          ))}
           <Image
-            src={currentImage}
-            alt={currentAlt}
+            src="/images/productshots/_dark_on.webp"
+            alt="Hanger Lamp - Off"
             fill
-            className="object-cover transition-opacity duration-300"
+            className={`object-cover transition-opacity duration-150 ${
+              isOff ? "opacity-100" : "opacity-0"
+            }`}
             priority
             sizes="100vw"
           />
