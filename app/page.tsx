@@ -20,19 +20,25 @@ export default function Home() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [showSliderHint, setShowSliderHint] = useState(false);
   const [isSwitchFixed, setIsSwitchFixed] = useState(false);
-  const loadedCount = useRef(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
   const mobileSwitchRef = useRef<HTMLDivElement>(null);
 
-  const handleHeroImageLoad = useCallback(() => {
-    loadedCount.current++;
-    // Both mobile + desktop sections render images, so we get 2x onLoad calls
-    if (loadedCount.current >= images.length * 2 && !isAnimating) {
-      setIsAnimating(true);
-    }
-  }, [isAnimating]);
+  // Preload all product images via JS and start animation when all are decoded
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(
+      images.map((img) => {
+        const i = new window.Image();
+        i.src = img.src;
+        return i.decode();
+      })
+    ).then(() => {
+      if (!cancelled) setIsAnimating(true);
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   // Intro animation: start fully open, hold 2s, then close
   useEffect(() => {
@@ -252,7 +258,7 @@ export default function Home() {
               }`}
               priority
               sizes="200vw"
-              onLoad={handleHeroImageLoad}
+
             />
           ))}
           <Image
@@ -343,7 +349,7 @@ export default function Home() {
               }`}
               priority
               sizes="100vw"
-              onLoad={handleHeroImageLoad}
+
             />
           ))}
           <Image
