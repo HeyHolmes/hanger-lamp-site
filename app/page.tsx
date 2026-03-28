@@ -222,9 +222,6 @@ export default function Home() {
           HL
         </a>
         <div className="flex items-center gap-6 md:gap-12 text-sm md:text-lg tracking-wide">
-          <a href="#use-cases" className="hover:opacity-60 transition-opacity">
-            Use Cases
-          </a>
           <a href="#specs" className="hover:opacity-60 transition-opacity">
             Specs
           </a>
@@ -240,12 +237,12 @@ export default function Home() {
         isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
       }`}>
         {/* Product Image - Top */}
-        <div className="relative w-full h-[48vh] flex-shrink-0 overflow-hidden">
+        <div className="relative w-full h-[60vh] flex-shrink-0 overflow-hidden">
           <Image
             src={currentImage}
             alt={currentAlt}
             fill
-            className="object-cover object-center transition-opacity duration-300 scale-125"
+            className="object-cover object-center transition-opacity duration-300 scale-[2.5] translate-y-[-5%]"
             priority
             sizes="100vw"
           />
@@ -575,126 +572,6 @@ export default function Home() {
             </button>
           </div>
 
-        </div>
-      </section>
-
-      {/* ========== USE CASES SECTION ========== */}
-      <section id="use-cases" className={`py-16 md:py-24 px-4 md:px-8 transition-colors duration-500 ${
-        isOff ? "bg-[#222]" : "bg-[#d9d5cd]"
-      }`}>
-        <div className="max-w-5xl mx-auto">
-          <h2 className={`text-sm font-medium tracking-[0.2em] mb-12 md:mb-16 transition-colors duration-500 ${
-            isOff ? "text-neutral-500" : "text-neutral-500"
-          }`}>
-            WHERE IT LIVES
-          </h2>
-
-          <div className="space-y-16 md:space-y-20">
-            {/* Bedroom */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
-              <div className={`aspect-[4/3] relative overflow-hidden ${
-                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
-              }`}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>01</span>
-                </div>
-              </div>
-              <div>
-                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
-                  isOff ? "text-neutral-200" : "text-black"
-                }`}>Bedroom</h3>
-                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
-                  isOff ? "text-neutral-400" : "text-neutral-600"
-                }`}>
-                  Mount it above your nightstand. Read by its warm glow, then hang tomorrow's outfit before you turn in. No more chair pile.
-                </p>
-              </div>
-            </div>
-
-            {/* Entryway */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
-              <div className={`aspect-[4/3] relative overflow-hidden md:order-2 ${
-                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
-              }`}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>02</span>
-                </div>
-              </div>
-              <div className="md:order-1">
-                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
-                  isOff ? "text-neutral-200" : "text-black"
-                }`}>Entryway</h3>
-                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
-                  isOff ? "text-neutral-400" : "text-neutral-600"
-                }`}>
-                  The first thing you see when you come home. Drop your coat, flip the light. A small ritual that makes a small space feel intentional.
-                </p>
-              </div>
-            </div>
-
-            {/* Bathroom */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
-              <div className={`aspect-[4/3] relative overflow-hidden ${
-                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
-              }`}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>03</span>
-                </div>
-              </div>
-              <div>
-                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
-                  isOff ? "text-neutral-200" : "text-black"
-                }`}>Bathroom</h3>
-                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
-                  isOff ? "text-neutral-400" : "text-neutral-600"
-                }`}>
-                  UL-listed for damp locations. Hang your robe after a shower, let the spa-like glow do the rest. Turns a builder-grade bathroom into a retreat.
-                </p>
-              </div>
-            </div>
-
-            {/* Home Office */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
-              <div className={`aspect-[4/3] relative overflow-hidden md:order-2 ${
-                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
-              }`}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>04</span>
-                </div>
-              </div>
-              <div className="md:order-1">
-                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
-                  isOff ? "text-neutral-200" : "text-black"
-                }`}>Home Office</h3>
-                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
-                  isOff ? "text-neutral-400" : "text-neutral-600"
-                }`}>
-                  Warm task lighting above your desk. Hang your headphones, a hat, whatever. One less thing on the desk, one more reason the room feels like yours.
-                </p>
-              </div>
-            </div>
-
-            {/* Hospitality */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
-              <div className={`aspect-[4/3] relative overflow-hidden ${
-                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
-              }`}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>05</span>
-                </div>
-              </div>
-              <div>
-                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
-                  isOff ? "text-neutral-200" : "text-black"
-                }`}>Hospitality</h3>
-                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
-                  isOff ? "text-neutral-400" : "text-neutral-600"
-                }`}>
-                  Hotels, Airbnbs, boutique stays. Guests notice it instantly — it's the kind of detail that ends up in a 5-star review. Volume pricing available.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
