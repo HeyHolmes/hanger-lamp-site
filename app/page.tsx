@@ -221,8 +221,8 @@ export default function Home() {
           HL
         </a>
         <div className="flex items-center gap-6 md:gap-12 text-sm md:text-lg tracking-wide">
-          <a href="#specs" className="hover:opacity-60 transition-opacity">
-            Specs
+          <a href="/images/HangerLamp_Spec_Sheet.pdf" download className="hover:opacity-60 transition-opacity">
+            Spec PDF
           </a>
           <a href="#signup" className="hover:opacity-60 transition-opacity">
             Batch 2
