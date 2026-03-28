@@ -224,9 +224,6 @@ export default function Home() {
           <a href="/images/HangerLamp_Spec_Sheet.pdf" download className="hover:opacity-60 transition-opacity">
             Spec PDF
           </a>
-          <a href="#signup" className="hover:opacity-60 transition-opacity">
-            Batch 2
-          </a>
         </div>
       </nav>
 
