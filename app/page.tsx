@@ -238,7 +238,7 @@ export default function Home() {
               src={img.src}
               alt={img.alt}
               fill
-              className={`object-cover object-center scale-125 transition-opacity duration-150 ${
+              className={`object-cover object-center scale-125 ${
                 !isOff && activeImage === i ? "opacity-100" : "opacity-0"
               }`}
               priority
@@ -249,7 +249,7 @@ export default function Home() {
             src="/images/productshots/_dark_on.webp"
             alt="Hanger Lamp - Off"
             fill
-            className={`object-cover object-center scale-125 transition-opacity duration-150 ${
+            className={`object-cover object-center scale-125 ${
               isOff ? "opacity-100" : "opacity-0"
             }`}
             priority
@@ -328,7 +328,7 @@ export default function Home() {
               src={img.src}
               alt={img.alt}
               fill
-              className={`object-cover transition-opacity duration-150 ${
+              className={`object-cover ${
                 !isOff && activeImage === i ? "opacity-100" : "opacity-0"
               }`}
               priority
@@ -339,7 +339,7 @@ export default function Home() {
             src="/images/productshots/_dark_on.webp"
             alt="Hanger Lamp - Off"
             fill
-            className={`object-cover transition-opacity duration-150 ${
+            className={`object-cover ${
               isOff ? "opacity-100" : "opacity-0"
             }`}
             priority
