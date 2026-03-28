@@ -377,13 +377,13 @@ export default function Home() {
             Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
           </p>
 
-          <button disabled className="bg-neutral-400 text-white px-6 py-3 text-sm tracking-wide cursor-not-allowed mb-3">
+          <button disabled className="w-full bg-neutral-400 text-white px-6 py-3 text-sm tracking-wide cursor-not-allowed mb-3">
             Batch 1: Sold out
           </button>
 
           <a
             href="#signup"
-            className="block bg-black text-white px-6 py-3 text-sm font-normal font-heading tracking-wide hover:bg-neutral-800 transition-colors text-center mb-6"
+            className="block w-full bg-black text-white px-6 py-3 text-sm font-normal font-heading tracking-wide hover:bg-neutral-800 transition-colors text-center mb-6"
           >
             Sign up for batch 2
           </a>
