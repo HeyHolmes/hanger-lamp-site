@@ -17,15 +17,24 @@ export default function Home() {
   const [activeImage, setActiveImage] = useState(images.length - 1);
   const [isDragging, setIsDragging] = useState(false);
   const [isOff, setIsOff] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [showSliderHint, setShowSliderHint] = useState(false);
   const [isSwitchFixed, setIsSwitchFixed] = useState(false);
+  const loadedCount = useRef(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
   const mobileSwitchRef = useRef<HTMLDivElement>(null);
 
-  // Intro animation: start fully open, hold 3s, then close
+  const handleHeroImageLoad = useCallback(() => {
+    loadedCount.current++;
+    // Both mobile + desktop sections render images, so we get 2x onLoad calls
+    if (loadedCount.current >= images.length * 2 && !isAnimating) {
+      setIsAnimating(true);
+    }
+  }, [isAnimating]);
+
+  // Intro animation: start fully open, hold 2s, then close
   useEffect(() => {
     if (!isAnimating) return;
 
@@ -243,6 +252,7 @@ export default function Home() {
               }`}
               priority
               sizes="200vw"
+              onLoad={handleHeroImageLoad}
             />
           ))}
           <Image
@@ -333,6 +343,7 @@ export default function Home() {
               }`}
               priority
               sizes="100vw"
+              onLoad={handleHeroImageLoad}
             />
           ))}
           <Image
