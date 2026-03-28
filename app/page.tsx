@@ -222,11 +222,14 @@ export default function Home() {
           HL
         </a>
         <div className="flex items-center gap-6 md:gap-12 text-sm md:text-lg tracking-wide">
-          <a href="#specs" className="hover:opacity-60 transition-opacity">
-            Spec Sheet
+          <a href="#use-cases" className="hover:opacity-60 transition-opacity">
+            Use Cases
           </a>
-          <a href="#contact" className="hover:opacity-60 transition-opacity">
-            Contact
+          <a href="#specs" className="hover:opacity-60 transition-opacity">
+            Specs
+          </a>
+          <a href="#signup" className="hover:opacity-60 transition-opacity">
+            Batch 2
           </a>
         </div>
       </nav>
@@ -572,6 +575,183 @@ export default function Home() {
             </button>
           </div>
 
+        </div>
+      </section>
+
+      {/* ========== USE CASES SECTION ========== */}
+      <section id="use-cases" className={`py-16 md:py-24 px-4 md:px-8 transition-colors duration-500 ${
+        isOff ? "bg-[#222]" : "bg-[#d9d5cd]"
+      }`}>
+        <div className="max-w-5xl mx-auto">
+          <h2 className={`text-sm font-medium tracking-[0.2em] mb-12 md:mb-16 transition-colors duration-500 ${
+            isOff ? "text-neutral-500" : "text-neutral-500"
+          }`}>
+            WHERE IT LIVES
+          </h2>
+
+          <div className="space-y-16 md:space-y-20">
+            {/* Bedroom */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
+              <div className={`aspect-[4/3] relative overflow-hidden ${
+                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
+              }`}>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>01</span>
+                </div>
+              </div>
+              <div>
+                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
+                  isOff ? "text-neutral-200" : "text-black"
+                }`}>Bedroom</h3>
+                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
+                  isOff ? "text-neutral-400" : "text-neutral-600"
+                }`}>
+                  Mount it above your nightstand. Read by its warm glow, then hang tomorrow's outfit before you turn in. No more chair pile.
+                </p>
+              </div>
+            </div>
+
+            {/* Entryway */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
+              <div className={`aspect-[4/3] relative overflow-hidden md:order-2 ${
+                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
+              }`}>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>02</span>
+                </div>
+              </div>
+              <div className="md:order-1">
+                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
+                  isOff ? "text-neutral-200" : "text-black"
+                }`}>Entryway</h3>
+                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
+                  isOff ? "text-neutral-400" : "text-neutral-600"
+                }`}>
+                  The first thing you see when you come home. Drop your coat, flip the light. A small ritual that makes a small space feel intentional.
+                </p>
+              </div>
+            </div>
+
+            {/* Bathroom */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
+              <div className={`aspect-[4/3] relative overflow-hidden ${
+                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
+              }`}>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>03</span>
+                </div>
+              </div>
+              <div>
+                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
+                  isOff ? "text-neutral-200" : "text-black"
+                }`}>Bathroom</h3>
+                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
+                  isOff ? "text-neutral-400" : "text-neutral-600"
+                }`}>
+                  UL-listed for damp locations. Hang your robe after a shower, let the spa-like glow do the rest. Turns a builder-grade bathroom into a retreat.
+                </p>
+              </div>
+            </div>
+
+            {/* Home Office */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
+              <div className={`aspect-[4/3] relative overflow-hidden md:order-2 ${
+                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
+              }`}>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>04</span>
+                </div>
+              </div>
+              <div className="md:order-1">
+                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
+                  isOff ? "text-neutral-200" : "text-black"
+                }`}>Home Office</h3>
+                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
+                  isOff ? "text-neutral-400" : "text-neutral-600"
+                }`}>
+                  Warm task lighting above your desk. Hang your headphones, a hat, whatever. One less thing on the desk, one more reason the room feels like yours.
+                </p>
+              </div>
+            </div>
+
+            {/* Hospitality */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
+              <div className={`aspect-[4/3] relative overflow-hidden ${
+                isOff ? "bg-neutral-800" : "bg-[#c4bdb5]"
+              }`}>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className={`text-6xl ${isOff ? "opacity-20" : "opacity-10"}`}>05</span>
+                </div>
+              </div>
+              <div>
+                <h3 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
+                  isOff ? "text-neutral-200" : "text-black"
+                }`}>Hospitality</h3>
+                <p className={`text-sm md:text-base leading-relaxed transition-colors duration-500 ${
+                  isOff ? "text-neutral-400" : "text-neutral-600"
+                }`}>
+                  Hotels, Airbnbs, boutique stays. Guests notice it instantly — it's the kind of detail that ends up in a 5-star review. Volume pricing available.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== BATCH 2 SIGNUP SECTION ========== */}
+      <section id="signup" className={`py-16 md:py-24 px-4 md:px-8 transition-colors duration-500 ${
+        isOff ? "bg-[#1a1a1a]" : "bg-[#CCC5BD]"
+      }`}>
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
+            isOff ? "text-neutral-200" : "text-black"
+          }`}>
+            Batch 2 — Spring 2026
+          </h2>
+          <p className={`text-sm md:text-base leading-relaxed mb-8 transition-colors duration-500 ${
+            isOff ? "text-neutral-400" : "text-neutral-600"
+          }`}>
+            Batch 1 sold out. Drop your email to be first in line for the next run.
+          </p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+              // TODO: Connect to Mailchimp, ConvertKit, or Google Sheets
+              console.log("Signup email:", email);
+              form.reset();
+              alert("You're on the list. We'll be in touch.");
+            }}
+            className="flex flex-col sm:flex-row gap-3"
+          >
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="your@email.com"
+              className={`flex-1 px-4 py-3 text-sm border transition-colors duration-500 focus:outline-none focus:ring-1 ${
+                isOff
+                  ? "bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500 focus:ring-neutral-500"
+                  : "bg-white border-neutral-300 text-black placeholder-neutral-400 focus:ring-black"
+              }`}
+            />
+            <button
+              type="submit"
+              className={`px-6 py-3 text-sm tracking-wide transition-colors ${
+                isOff
+                  ? "bg-white text-black hover:bg-neutral-200"
+                  : "bg-black text-white hover:bg-neutral-800"
+              }`}
+            >
+              Join Waitlist
+            </button>
+          </form>
+          <p className={`text-xs mt-4 transition-colors duration-500 ${
+            isOff ? "text-neutral-600" : "text-neutral-400"
+          }`}>
+            No spam. Just a heads up when Batch 2 drops.
+          </p>
         </div>
       </section>
 
