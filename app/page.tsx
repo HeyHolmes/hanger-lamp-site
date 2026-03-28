@@ -29,7 +29,7 @@ export default function Home() {
   useEffect(() => {
     if (!isAnimating) return;
 
-    const holdTime = 3000;
+    const holdTime = 2000;
     const timePerImage = 360;
     let currentIndex = images.length - 1;
 
