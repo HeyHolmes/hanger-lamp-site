@@ -14,10 +14,10 @@ const images = [
 ];
 
 export default function Home() {
-  const [activeImage, setActiveImage] = useState(0);
+  const [activeImage, setActiveImage] = useState(images.length - 1);
   const [isDragging, setIsDragging] = useState(false);
   const [isOff, setIsOff] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(true);
   const [showSliderHint, setShowSliderHint] = useState(false);
   const [isSwitchFixed, setIsSwitchFixed] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -25,14 +25,15 @@ export default function Home() {
   const heroSectionRef = useRef<HTMLElement>(null);
   const mobileSwitchRef = useRef<HTMLDivElement>(null);
 
-  // Intro animation
+  // Intro animation: start fully open, hold 3s, then close
   useEffect(() => {
     if (!isAnimating) return;
 
+    const holdTime = 3000;
     const timePerImage = 360;
     let currentIndex = images.length - 1;
 
-    const initialTimeout = setTimeout(() => {
+    const holdTimeout = setTimeout(() => {
       const interval = setInterval(() => {
         currentIndex--;
         if (currentIndex >= 0) {
@@ -41,13 +42,11 @@ export default function Home() {
         if (currentIndex <= 0) {
           clearInterval(interval);
           setIsAnimating(false);
-          setShowSliderHint(true);
-          setTimeout(() => setShowSliderHint(false), 3000);
         }
       }, timePerImage);
-    }, 750);
+    }, holdTime);
 
-    return () => clearTimeout(initialTimeout);
+    return () => clearTimeout(holdTimeout);
   }, [isAnimating]);
 
   // Vertical slider drag handler (desktop)
