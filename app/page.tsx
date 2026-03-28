@@ -323,7 +323,7 @@ export default function Home() {
 
           <a
             href="#signup"
-            className="block w-full bg-black text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-neutral-800 transition-colors text-center"
+            className="block w-full bg-black text-white px-6 py-4 text-base font-bold font-heading tracking-wide hover:bg-neutral-800 transition-colors text-center"
           >
             Sign up for batch 2
           </a>
@@ -383,7 +383,7 @@ export default function Home() {
 
           <a
             href="#signup"
-            className="block bg-black text-white px-6 py-3 text-sm tracking-wide hover:bg-neutral-800 transition-colors text-center mb-6"
+            className="block bg-black text-white px-6 py-3 text-sm font-bold font-heading tracking-wide hover:bg-neutral-800 transition-colors text-center mb-6"
           >
             Sign up for batch 2
           </a>
