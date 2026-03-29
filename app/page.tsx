@@ -284,11 +284,11 @@ export default function Home() {
             priority
           />
           {/* Gradient fade at top */}
-          <div className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-b to-transparent z-10 transition-colors duration-500 ${
+          <div className={`absolute top-0 left-0 right-0 h-16 bg-gradient-to-b to-transparent z-10 transition-colors duration-500 ${
             isOff ? "from-[#2a2a2a]" : "from-[#E2DCDB]"
           }`} />
           {/* Gradient fade at bottom */}
-          <div className={`absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
+          <div className={`absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
             isOff ? "from-[#2a2a2a]" : "from-[#E2DCDB]"
           }`} />
           {/* Light Switch */}
