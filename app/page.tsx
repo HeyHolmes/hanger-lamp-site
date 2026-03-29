@@ -507,25 +507,25 @@ export default function Home() {
                   isOff ? "border-neutral-700" : "border-neutral-300"
                 }`}>
                   <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Width</span>
-                  <span>36"</span>
+                  <span>46-1/2"</span>
                 </div>
                 <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
                   isOff ? "border-neutral-700" : "border-neutral-300"
                 }`}>
                   <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Height</span>
-                  <span>14"</span>
+                  <span>34-1/2"</span>
                 </div>
                 <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
                   isOff ? "border-neutral-700" : "border-neutral-300"
                 }`}>
                   <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Depth</span>
-                  <span>8"</span>
+                  <span>6-1/4"</span>
                 </div>
                 <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
                   isOff ? "border-neutral-700" : "border-neutral-300"
                 }`}>
                   <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Weight</span>
-                  <span>4.2 lbs</span>
+                  <span>12.43 lbs</span>
                 </div>
                 <div className="flex justify-between">
                   <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Bulb</span>
