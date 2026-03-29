@@ -542,16 +542,6 @@ export default function Home() {
             />
           </div>
 
-          {/* Quote block */}
-          <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex items-center transition-colors duration-500 ${
-            isOff ? "text-neutral-200" : "text-black"
-          }`}>
-            <blockquote className="border-l-2 border-current pl-4 md:pl-5">
-              <p className="text-base md:text-lg italic font-light leading-relaxed">
-                Form follows function — but here, they dance together.
-              </p>
-            </blockquote>
-          </div>
 
           {/* Close-up image */}
           <div className="md:col-span-4 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
