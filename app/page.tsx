@@ -226,8 +226,8 @@ export default function Home() {
   return (
     <div className="font-sans select-none bg-[#CCC5BD]">
       {/* ========== NAVIGATION ========== */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-start md:gap-16 px-4 md:px-12 py-4 md:py-8 transition-colors duration-500 ${
-        isOff ? "text-neutral-200" : "text-black"
+      <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-start md:gap-16 px-5 md:px-12 py-4 md:py-6 backdrop-blur-sm transition-colors duration-500 ${
+        isOff ? "text-neutral-200 bg-[#2a2a2a]/40" : "text-black bg-[#CCC5BD]/40"
       }`}>
         <a 
           href="#" 
@@ -299,7 +299,7 @@ export default function Home() {
             <p className={`flex-1 text-[15px] leading-relaxed transition-colors duration-500 ${
               isOff ? "text-neutral-300" : "text-neutral-700"
             }`}>
-              teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
+              Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger. A piece that values your daily routine as much as your decor.
             </p>
             
             {/* Light Switch */}
@@ -368,15 +368,15 @@ export default function Home() {
         </div>
 
         {/* Content overlay - Left side */}
-        <div className={`absolute left-12 top-1/2 -translate-y-1/2 z-10 max-w-xs transition-colors duration-500 ${
+        <div className={`absolute left-12 top-1/2 -translate-y-1/2 z-10 max-w-sm transition-colors duration-500 ${
           isOff ? "text-neutral-200" : "text-black"
         }`}>
-          <h1 className="text-3xl font-normal tracking-tight mb-2">
+          <h1 className="text-4xl font-normal tracking-tight mb-1">
             Hanger Lamp
           </h1>
-          <p className="text-lg mb-4">$███</p>
-          <p className={`text-sm leading-relaxed mb-8 transition-colors duration-500 ${
-            isOff ? "text-neutral-300" : "text-neutral-700"
+          <p className="text-lg mb-5 tracking-wide">$███</p>
+          <p className={`text-[15px] leading-relaxed mb-8 transition-colors duration-500 ${
+            isOff ? "text-neutral-300" : "text-neutral-600"
           }`}>
             Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger to dry your merino wool sweater. It's a piece that values your daily routine as much as your decor.
           </p>
@@ -554,9 +554,11 @@ export default function Home() {
           <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex items-center transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
-            <p className="text-base md:text-lg italic font-light">
-              "Form follows function—but here, they dance together."
-            </p>
+            <blockquote className="border-l-2 border-current pl-4 md:pl-5">
+              <p className="text-base md:text-lg italic font-light leading-relaxed">
+                Form follows function — but here, they dance together.
+              </p>
+            </blockquote>
           </div>
 
           {/* Close-up image */}
@@ -613,7 +615,7 @@ export default function Home() {
       </section>
 
       {/* ========== BATCH 2 SIGNUP SECTION ========== */}
-      <section id="signup" className={`py-16 md:py-24 px-4 md:px-8 transition-colors duration-500 ${
+      <section id="signup" className={`py-20 md:py-28 px-4 md:px-8 transition-colors duration-500 ${
         isOff ? "bg-[#1a1a1a]" : "bg-[#CCC5BD]"
       }`}>
         <div className="max-w-xl mx-auto text-center">
@@ -671,17 +673,17 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-8 md:mt-12 pt-6 md:pt-8 border-t border-neutral-800 text-neutral-500 text-xs">
+        <div className="max-w-7xl mx-auto mt-8 md:mt-12 pt-6 md:pt-8 border-t border-neutral-800 text-neutral-500 text-xs tracking-wide">
           © 2026 Hanger Lamp. All rights reserved.
         </div>
       </footer>
       {/* ========== SIGNUP MODAL ========== */}
       {showSignup && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4 animate-backdrop-in"
           onClick={(e) => { if (e.target === e.currentTarget) setShowSignup(false); }}
         >
-          <div className="bg-[#f5f3f0] w-full max-w-md p-8 relative">
+          <div className="bg-[#f5f3f0] w-full max-w-md p-8 relative animate-modal-in">
             <button
               onClick={() => setShowSignup(false)}
               className="absolute top-4 right-4 text-neutral-500 hover:text-black text-xl leading-none"
