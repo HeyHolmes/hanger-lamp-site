@@ -715,14 +715,11 @@ export default function Home() {
                     };
                     try {
                       const scriptUrl = "https://script.google.com/macros/s/AKfycbxf5yH-0G9yWle8JOMSEe5ZLPhaBbpSJEsXqNxPbn748PoMp62QQKabo9ZBWAfCziBb/exec";
-                      {
-                        await fetch(scriptUrl, {
-                          method: "POST",
-                          mode: "no-cors",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify(data),
-                        });
-                      }
+                      const params = new URLSearchParams(data);
+                      await fetch(`${scriptUrl}?${params.toString()}`, {
+                        method: "GET",
+                        mode: "no-cors",
+                      });
                     } catch {
                       // Silently fail — we still show confirmation
                     }
