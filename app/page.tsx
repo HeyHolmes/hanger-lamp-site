@@ -657,12 +657,9 @@ export default function Home() {
             </p>
           </div>
           <div>
-            <h4 className="text-sm font-medium tracking-widest text-neutral-500 mb-4">LINKS</h4>
+            <h4 className="text-sm font-medium tracking-widest text-neutral-500 mb-4">MATERIALS</h4>
             <div className="space-y-2 text-sm">
               <a href="/images/HangerLamp_Spec_Sheet.pdf" download className="block text-neutral-400 hover:text-white transition-colors">Download Spec PDF</a>
-              <a href="#" className="block text-neutral-400 hover:text-white transition-colors">FAQ</a>
-              <a href="#" className="block text-neutral-400 hover:text-white transition-colors">Shipping & Returns</a>
-              <a href="#" className="block text-neutral-400 hover:text-white transition-colors">Terms & Conditions</a>
             </div>
           </div>
         </div>
