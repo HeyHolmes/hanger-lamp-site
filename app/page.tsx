@@ -262,16 +262,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Spec PDF link - fixed top right */}
-      <a
-        href="/images/HangerLamp_Spec_Sheet.pdf"
-        download
-        className={`fixed top-2 right-4 z-[51] text-sm tracking-wide hover:opacity-60 transition-all duration-500 py-1 ${
-          isOff ? "text-neutral-200" : "text-black"
-        }`}
-      >
-        Spec PDF
-      </a>
 
       {/* ========== HERO SECTION ========== */}
       {/* Mobile Layout */}
@@ -698,6 +688,7 @@ export default function Home() {
           <div>
             <h4 className="text-sm font-medium tracking-widest text-neutral-500 mb-4">LINKS</h4>
             <div className="space-y-2 text-sm">
+              <a href="/images/HangerLamp_Spec_Sheet.pdf" download className="block text-neutral-400 hover:text-white transition-colors">Download Spec PDF</a>
               <a href="#" className="block text-neutral-400 hover:text-white transition-colors">FAQ</a>
               <a href="#" className="block text-neutral-400 hover:text-white transition-colors">Shipping & Returns</a>
               <a href="#" className="block text-neutral-400 hover:text-white transition-colors">Terms & Conditions</a>
