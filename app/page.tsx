@@ -269,7 +269,7 @@ export default function Home() {
         isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
       }`}>
         {/* Content Area - Text First, centered on first screen */}
-        <div className="px-6 min-h-[calc(100vh-40px)] flex flex-col justify-center pb-8">
+        <div className="px-6 pt-[18vh] pb-6">
           <h1 className={`text-[36px] font-light tracking-tight leading-none mb-2 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
