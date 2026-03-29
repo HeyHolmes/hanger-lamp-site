@@ -241,12 +241,12 @@ export default function Home() {
       }`}>
         {/* Content Area - Text First, centered on first screen */}
         <div className="px-6 pt-[18vh] pb-6">
-          <h1 className={`text-[36px] font-light tracking-tight leading-none mb-2 transition-colors duration-500 ${
+          <h1 className={`text-[36px] font-light tracking-tight leading-none mb-5 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
             Hanger Lamp
           </h1>
-          <p className={`text-base italic mb-3 transition-colors duration-500 ${
+          <p className={`text-base italic mb-6 transition-colors duration-500 ${
             isOff ? "text-neutral-400" : "text-neutral-600"
           }`}>A utility rack that&apos;s lit.</p>
 
