@@ -245,16 +245,14 @@ export default function Home() {
         >
           {marqueeItems.map((i) => (
             <div key={i} className="flex items-center gap-8 shrink-0">
-              <span className={`text-lg font-medium tracking-wide transition-colors duration-500 ${
+              <span className={`text-lg font-heading font-bold tracking-wide transition-colors duration-500 ${
                 isOff ? "text-neutral-200" : "text-black"
               }`}>Hanger Lamp</span>
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/logo.svg"
-                alt="Hanger Lamp logo"
-                width={40}
-                height={18}
-                className={`transition-all duration-500 ${isOff ? "invert" : ""}`}
-                unoptimized
+                alt=""
+                className={`w-10 h-auto transition-all duration-500 ${isOff ? "invert" : ""}`}
               />
             </div>
           ))}
