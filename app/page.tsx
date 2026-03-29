@@ -23,6 +23,7 @@ export default function Home() {
   const [showSignup, setShowSignup] = useState(false);
   const [signupSubmitted, setSignupSubmitted] = useState(false);
   const [signupLoading, setSignupLoading] = useState(false);
+  const [waitlistNumber, setWaitlistNumber] = useState(175);
   const trackRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
@@ -692,6 +693,7 @@ export default function Home() {
             {signupSubmitted ? (
               <div className="text-center py-8">
                 <h3 className="text-2xl font-light mb-3">You&apos;re on the list.</h3>
+                <p className="text-3xl font-light mb-3">#{waitlistNumber}</p>
                 <p className="text-neutral-600 text-sm">We&apos;ll reach out when Batch 2 is ready. Thanks for your interest.</p>
               </div>
             ) : (
@@ -725,6 +727,7 @@ export default function Home() {
                       // Silently fail — we still show confirmation
                     }
                     setSignupLoading(false);
+                    setWaitlistNumber((n) => n + 1);
                     setSignupSubmitted(true);
                   }}
                   className="space-y-4"
