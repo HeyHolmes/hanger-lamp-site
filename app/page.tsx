@@ -266,9 +266,6 @@ export default function Home() {
             Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger. A piece that values your daily routine as much as your decor.
           </p>
 
-          <p className={`text-xl font-light mb-4 transition-colors duration-500 ${
-            isOff ? "text-neutral-200" : "text-black"
-          }`}>$███</p>
         </div>
 
         {/* Product Image */}
@@ -376,7 +373,6 @@ export default function Home() {
           <p className={`text-base italic mb-4 transition-colors duration-500 ${
             isOff ? "text-neutral-400" : "text-neutral-600"
           }`}>A clothing rack that&apos;s lit.</p>
-          <p className="text-lg mb-5 tracking-wide">$███</p>
           <p className={`text-[15px] leading-relaxed mb-8 transition-colors duration-500 ${
             isOff ? "text-neutral-300" : "text-neutral-600"
           }`}>
