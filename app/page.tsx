@@ -248,7 +248,7 @@ export default function Home() {
           </h1>
           <p className={`text-base italic mb-3 transition-colors duration-500 ${
             isOff ? "text-neutral-400" : "text-neutral-600"
-          }`}>A clothing rack that&apos;s lit.</p>
+          }`}>A utility rack that&apos;s lit.</p>
 
           <p className={`text-[15px] leading-relaxed mb-4 transition-colors duration-500 ${
             isOff ? "text-neutral-300" : "text-neutral-700"
@@ -366,7 +366,7 @@ export default function Home() {
           </h1>
           <p className={`text-base italic mb-4 transition-colors duration-500 ${
             isOff ? "text-neutral-400" : "text-neutral-600"
-          }`}>A clothing rack that&apos;s lit.</p>
+          }`}>A utility rack that&apos;s lit.</p>
           <p className={`text-[15px] leading-relaxed mb-8 transition-colors duration-500 ${
             isOff ? "text-neutral-300" : "text-neutral-600"
           }`}>
