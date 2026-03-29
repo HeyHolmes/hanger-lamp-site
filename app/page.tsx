@@ -277,7 +277,7 @@ export default function Home() {
               alt={img.alt}
               fill
               unoptimized
-              className={`object-cover object-center scale-110 ${
+              className={`object-cover object-center scale-[1.2] ${
                 !isOff && activeImage === i ? "opacity-100" : "opacity-0"
               }`}
               priority
@@ -288,11 +288,15 @@ export default function Home() {
             alt="Hanger Lamp - Off"
             fill
             unoptimized
-            className={`object-cover object-center scale-110 ${
+            className={`object-cover object-center scale-[1.2] ${
               isOff ? "opacity-100" : "opacity-0"
             }`}
             priority
           />
+          {/* Gradient fade at top */}
+          <div className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-b to-transparent z-10 transition-colors duration-500 ${
+            isOff ? "from-[#2a2a2a]" : "from-[#CCC5BD]"
+          }`} />
           {/* Gradient fade at bottom */}
           <div className={`absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
             isOff ? "from-[#2a2a2a]" : "from-[#CCC5BD]"
