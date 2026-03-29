@@ -680,10 +680,10 @@ export default function Home() {
       {/* ========== SIGNUP MODAL ========== */}
       {showSignup && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4 animate-backdrop-in"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4"
           onClick={(e) => { if (e.target === e.currentTarget) setShowSignup(false); }}
         >
-          <div className="bg-[#f5f3f0] w-full max-w-md p-8 relative animate-modal-in">
+          <div className="bg-[#f5f3f0] w-full max-w-md p-8 relative">
             <button
               onClick={() => setShowSignup(false)}
               className="absolute top-4 right-4 text-neutral-500 hover:text-black text-xl leading-none"
