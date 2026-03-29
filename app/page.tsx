@@ -319,7 +319,7 @@ export default function Home() {
             onClick={() => setShowSignup(true)}
             className="w-full bg-black text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-neutral-800 transition-colors"
           >
-            Batch 2
+            Sign up for batch 2
           </button>
         </div>
       </section>
@@ -361,10 +361,10 @@ export default function Home() {
         <div className={`absolute left-12 top-1/2 -translate-y-1/2 z-10 max-w-sm transition-colors duration-500 ${
           isOff ? "text-neutral-200" : "text-black"
         }`}>
-          <h1 className="text-4xl font-normal tracking-tight mb-2">
+          <h1 className="text-4xl font-normal tracking-tight mb-4">
             Hanger Lamp
           </h1>
-          <p className={`text-base italic mb-4 transition-colors duration-500 ${
+          <p className={`text-base italic mb-5 transition-colors duration-500 ${
             isOff ? "text-neutral-400" : "text-neutral-600"
           }`}>A utility rack that&apos;s lit.</p>
           <p className={`text-[15px] leading-relaxed mb-8 transition-colors duration-500 ${
@@ -381,7 +381,7 @@ export default function Home() {
             onClick={() => setShowSignup(true)}
             className="w-full bg-black text-white px-6 py-3 text-sm tracking-wide hover:bg-neutral-800 transition-colors mb-6"
           >
-            Batch 2
+            Sign up for batch 2
           </button>
 
           {/* Light Switch - Desktop */}
@@ -447,7 +447,7 @@ export default function Home() {
               src={isOff ? "/images/gallery/inside-lights-off.JPG" : "/images/gallery/inside-lots-of-clothes-top-shot.JPG"}
               alt="Hanger Lamp lifestyle"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
           </div>
 
@@ -457,7 +457,7 @@ export default function Home() {
               src="/images/gallery/close-up-shade.JPG"
               alt="Hanger Lamp shade detail"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
           </div>
 
@@ -482,7 +482,7 @@ export default function Home() {
               src="/images/gallery/outside-florida-surf.JPG"
               alt="Hanger Lamp outdoor surf"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
           </div>
 
@@ -538,7 +538,7 @@ export default function Home() {
               src={isOff ? "/images/gallery/lights-off-push.JPG" : "/images/gallery/outside-fins-sauna.png"}
               alt="Hanger Lamp in use"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
           </div>
 
@@ -549,7 +549,7 @@ export default function Home() {
               src="/images/gallery/close-up-handle.JPG"
               alt="Hanger Lamp handle close-up"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
           </div>
 
@@ -573,7 +573,7 @@ export default function Home() {
               src="/images/gallery/outside-snow-mammoth.JPG"
               alt="Hanger Lamp in snow environment"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
           </div>
 
@@ -585,7 +585,7 @@ export default function Home() {
         isOff ? "bg-[#1a1a1a]" : "bg-[#E2DCDB]"
       }`}>
         <div className="max-w-xl mx-auto text-center">
-          <h2 className={`text-2xl lg:text-3xl font-light mb-3 transition-colors duration-500 ${
+          <h2 className={`text-2xl lg:text-3xl font-light tracking-tight mb-3 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
             Want in on Batch 2?
@@ -650,7 +650,7 @@ export default function Home() {
           <div className="bg-[#f5f3f0] w-full max-w-md p-8 relative">
             <button
               onClick={() => setShowSignup(false)}
-              className="absolute top-4 right-4 text-neutral-500 hover:text-black text-xl leading-none"
+              className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-black text-xl leading-none transition-colors"
               aria-label="Close"
             >
               &times;

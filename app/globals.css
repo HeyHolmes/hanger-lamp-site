@@ -37,7 +37,7 @@ nav, button {
 
 /* Custom scrollbar for a refined feel */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
