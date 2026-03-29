@@ -24,6 +24,7 @@ export default function Home() {
   const [signupSubmitted, setSignupSubmitted] = useState(false);
   const [signupLoading, setSignupLoading] = useState(false);
   const [waitlistNumber, setWaitlistNumber] = useState(175);
+  const [scrollPos, setScrollPos] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
@@ -223,34 +224,61 @@ export default function Home() {
 
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
 
+  // Track scroll position for marquee
+  useEffect(() => {
+    const handleScroll = () => setScrollPos(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const marqueeItems = Array.from({ length: 12 }, (_, i) => i);
+
   return (
     <div className="font-sans select-none bg-[#CCC5BD]">
-      {/* ========== NAVIGATION ========== */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-start md:gap-16 px-5 md:px-12 py-4 md:py-6 backdrop-blur-sm transition-colors duration-500 ${
-        isOff ? "text-neutral-200 bg-[#2a2a2a]/40" : "text-black bg-[#CCC5BD]/40"
+      {/* ========== SCROLLING MARQUEE BANNER ========== */}
+      <div className={`fixed top-0 left-0 right-0 z-50 overflow-hidden py-2.5 transition-colors duration-500 ${
+        isOff ? "bg-[#2a2a2a]/80 backdrop-blur-sm" : "bg-[#CCC5BD]/80 backdrop-blur-sm"
       }`}>
-        <a 
-          href="#" 
-          className={`text-lg md:text-xl font-medium tracking-wide border-b-2 pb-0.5 transition-colors duration-500 ${
-            isOff ? "border-neutral-200" : "border-black"
-          }`}
+        <div
+          className="flex items-center gap-8 whitespace-nowrap"
+          style={{ transform: `translateX(${-scrollPos * 0.3}px)` }}
         >
-          HL
-        </a>
-        <div className="flex items-center gap-6 md:gap-12 text-sm md:text-lg tracking-wide">
-          <a href="/images/HangerLamp_Spec_Sheet.pdf" download className="hover:opacity-60 transition-opacity">
-            Spec PDF
-          </a>
+          {marqueeItems.map((i) => (
+            <div key={i} className="flex items-center gap-8 shrink-0">
+              <span className={`text-lg font-medium tracking-wide transition-colors duration-500 ${
+                isOff ? "text-neutral-200" : "text-black"
+              }`}>Hanger Lamp</span>
+              <Image
+                src="/logo.svg"
+                alt="Hanger Lamp logo"
+                width={40}
+                height={18}
+                className={`transition-all duration-500 ${isOff ? "invert" : ""}`}
+                unoptimized
+              />
+            </div>
+          ))}
         </div>
-      </nav>
+      </div>
+
+      {/* Spec PDF link - fixed top right */}
+      <a
+        href="/images/HangerLamp_Spec_Sheet.pdf"
+        download
+        className={`fixed top-2 right-4 z-[51] text-sm tracking-wide hover:opacity-60 transition-all duration-500 py-1 ${
+          isOff ? "text-neutral-200" : "text-black"
+        }`}
+      >
+        Spec PDF
+      </a>
 
       {/* ========== HERO SECTION ========== */}
       {/* Mobile Layout */}
-      <section className={`md:hidden flex flex-col pt-14 transition-colors duration-500 ${
+      <section className={`md:hidden flex flex-col pt-10 transition-colors duration-500 ${
         isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
       }`}>
         {/* Content Area - Text First, centered on first screen */}
-        <div className="px-6 min-h-[calc(100vh-56px)] flex flex-col justify-center pb-8">
+        <div className="px-6 min-h-[calc(100vh-40px)] flex flex-col justify-center pb-8">
           <h1 className={`text-[36px] font-light tracking-tight leading-none mb-2 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
