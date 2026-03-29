@@ -251,34 +251,14 @@ export default function Home() {
       }`}>
         {/* Content Area - Text First */}
         <div className="px-6 pt-6 pb-4">
-          <div className="flex justify-between items-start mb-3">
-            <div>
-              <h1 className={`text-[36px] font-light tracking-tight leading-none mb-2 transition-colors duration-500 ${
-                isOff ? "text-neutral-200" : "text-black"
-              }`}>
-                Hanger Lamp
-              </h1>
-              <p className={`text-base italic transition-colors duration-500 ${
-                isOff ? "text-neutral-400" : "text-neutral-600"
-              }`}>A clothing rack that&apos;s lit.</p>
-            </div>
-            {/* Light Switch */}
-            <div ref={mobileSwitchRef} className="flex-shrink-0 mt-1">
-              <button
-                onClick={toggleLight}
-                className={`relative w-14 h-28 rounded-full transition-all duration-300 ${
-                  isOff ? "bg-neutral-700" : "bg-neutral-300"
-                }`}
-                aria-label={isOff ? "Turn light on" : "Turn light off"}
-              >
-                <div
-                  className={`absolute w-10 h-10 rounded-full bg-white shadow-md transition-all duration-300 left-1/2 -translate-x-1/2 ${
-                    isOff ? "top-2" : "bottom-2"
-                  }`}
-                />
-              </button>
-            </div>
-          </div>
+          <h1 className={`text-[36px] font-light tracking-tight leading-none mb-2 transition-colors duration-500 ${
+            isOff ? "text-neutral-200" : "text-black"
+          }`}>
+            Hanger Lamp
+          </h1>
+          <p className={`text-base italic mb-3 transition-colors duration-500 ${
+            isOff ? "text-neutral-400" : "text-neutral-600"
+          }`}>A clothing rack that&apos;s lit.</p>
 
           <p className={`text-[15px] leading-relaxed mb-4 transition-colors duration-500 ${
             isOff ? "text-neutral-300" : "text-neutral-700"
@@ -320,6 +300,22 @@ export default function Home() {
           <div className={`absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
             isOff ? "from-[#2a2a2a]" : "from-[#CCC5BD]"
           }`} />
+          {/* Light Switch */}
+          <div ref={mobileSwitchRef} className="absolute bottom-6 right-6 z-20">
+            <button
+              onClick={toggleLight}
+              className={`relative w-14 h-28 rounded-full transition-all duration-300 ${
+                isOff ? "bg-neutral-700" : "bg-neutral-300/80"
+              }`}
+              aria-label={isOff ? "Turn light on" : "Turn light off"}
+            >
+              <div
+                className={`absolute w-10 h-10 rounded-full bg-white shadow-md transition-all duration-300 left-1/2 -translate-x-1/2 ${
+                  isOff ? "top-2" : "bottom-2"
+                }`}
+              />
+            </button>
+          </div>
         </div>
 
         {/* CTA Buttons */}
