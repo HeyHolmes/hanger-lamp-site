@@ -248,12 +248,15 @@ export default function Home() {
               <span className={`text-lg font-heading font-bold tracking-wide transition-colors duration-500 ${
                 isOff ? "text-neutral-200" : "text-black"
               }`}>Hanger Lamp</span>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo.svg"
-                alt=""
-                className={`w-10 h-auto transition-all duration-500 ${isOff ? "invert" : ""}`}
-              />
+              <svg width="814" height="458" viewBox="126 103 562 252" fill="none" xmlns="http://www.w3.org/2000/svg" className={`w-10 h-auto transition-colors duration-500 ${isOff ? "text-neutral-200" : "text-black"}`}>
+                <path d="M301.661 319.368H322.122V307.895C322.122 305.031 321.344 302.228 319.864 299.776L301.661 269.597V319.368Z" fill="currentColor"/>
+                <path d="M129.784 334.514C127.694 334.514 126 336.21 126 338.303V351.204C126 353.297 127.694 354.992 129.784 354.992H364.927V334.507H129.784V334.514Z" fill="currentColor"/>
+                <path d="M381.131 259.179L383.991 243.749H315.668L218.21 146.171C216.73 144.689 214.334 144.689 212.854 146.171L203.745 155.291C202.265 156.773 202.265 159.171 203.745 160.653L367.307 324.417L381.771 309.935L336.121 264.227H375.05C378.026 264.227 380.581 262.104 381.123 259.171L381.131 259.179Z" fill="currentColor"/>
+                <path d="M684.216 334.514H449.035V355H684.216C686.306 355 688 353.304 688 351.211V338.31C688 336.218 686.306 334.522 684.216 334.522V334.514Z" fill="currentColor"/>
+                <path d="M491.878 319.368H512.339V269.521L494.136 299.699C492.656 302.151 491.878 304.954 491.878 307.819V319.368Z" fill="currentColor"/>
+                <path d="M417.23 106.789C417.23 104.696 415.537 103 413.446 103H400.561C398.471 103 396.777 104.696 396.777 106.789V307.001H417.238V106.789H417.23Z" fill="currentColor"/>
+                <path d="M610.255 160.653C611.735 159.171 611.735 156.773 610.255 155.291L601.146 146.171C599.666 144.689 597.27 144.689 595.79 146.171L498.332 243.749H430.077L432.938 259.179C433.48 262.112 436.035 264.235 439.01 264.235H477.864L432.213 309.942L446.677 324.424L610.239 160.661L610.255 160.653Z" fill="currentColor"/>
+              </svg>
             </div>
           ))}
         </div>
