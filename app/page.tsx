@@ -246,11 +246,53 @@ export default function Home() {
 
       {/* ========== HERO SECTION ========== */}
       {/* Mobile Layout */}
-      <section className={`md:hidden min-h-screen flex flex-col pt-14 transition-colors duration-500 ${
+      <section className={`md:hidden flex flex-col pt-14 transition-colors duration-500 ${
         isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
       }`}>
-        {/* Product Image - Top */}
-        <div className="relative w-full h-[48vh] flex-shrink-0 overflow-hidden">
+        {/* Content Area - Text First */}
+        <div className="px-6 pt-6 pb-4">
+          <div className="flex justify-between items-start mb-3">
+            <div>
+              <h1 className={`text-[36px] font-light tracking-tight leading-none mb-2 transition-colors duration-500 ${
+                isOff ? "text-neutral-200" : "text-black"
+              }`}>
+                Hanger Lamp
+              </h1>
+              <p className={`text-base italic transition-colors duration-500 ${
+                isOff ? "text-neutral-400" : "text-neutral-600"
+              }`}>A clothing rack that&apos;s lit.</p>
+            </div>
+            {/* Light Switch */}
+            <div ref={mobileSwitchRef} className="flex-shrink-0 mt-1">
+              <button
+                onClick={toggleLight}
+                className={`relative w-14 h-28 rounded-full transition-all duration-300 ${
+                  isOff ? "bg-neutral-700" : "bg-neutral-300"
+                }`}
+                aria-label={isOff ? "Turn light on" : "Turn light off"}
+              >
+                <div
+                  className={`absolute w-10 h-10 rounded-full bg-white shadow-md transition-all duration-300 left-1/2 -translate-x-1/2 ${
+                    isOff ? "top-2" : "bottom-2"
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
+
+          <p className={`text-[15px] leading-relaxed mb-4 transition-colors duration-500 ${
+            isOff ? "text-neutral-300" : "text-neutral-700"
+          }`}>
+            Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger. A piece that values your daily routine as much as your decor.
+          </p>
+
+          <p className={`text-xl font-light mb-4 transition-colors duration-500 ${
+            isOff ? "text-neutral-200" : "text-black"
+          }`}>$███</p>
+        </div>
+
+        {/* Product Image */}
+        <div className="relative w-full h-[55vh] overflow-hidden">
           {images.map((img, i) => (
             <Image
               key={img.src}
@@ -258,7 +300,7 @@ export default function Home() {
               alt={img.alt}
               fill
               unoptimized
-              className={`object-cover object-center scale-125 ${
+              className={`object-cover object-center scale-110 ${
                 !isOff && activeImage === i ? "opacity-100" : "opacity-0"
               }`}
               priority
@@ -269,7 +311,7 @@ export default function Home() {
             alt="Hanger Lamp - Off"
             fill
             unoptimized
-            className={`object-cover object-center scale-125 ${
+            className={`object-cover object-center scale-110 ${
               isOff ? "opacity-100" : "opacity-0"
             }`}
             priority
@@ -280,50 +322,8 @@ export default function Home() {
           }`} />
         </div>
 
-        {/* Content Area */}
-        <div className="flex-1 px-6 pt-4 pb-6">
-          {/* Title */}
-          <h1 className={`text-[36px] font-light tracking-tight leading-none mb-2 transition-colors duration-500 ${
-            isOff ? "text-neutral-200" : "text-black"
-          }`}>
-            Hanger Lamp
-          </h1>
-          <p className={`text-base italic mb-3 transition-colors duration-500 ${
-            isOff ? "text-neutral-400" : "text-neutral-600"
-          }`}>A clothing rack that&apos;s lit.</p>
-
-          {/* Price */}
-          <p className={`text-xl font-light mb-3 transition-colors duration-500 ${
-            isOff ? "text-neutral-200" : "text-black"
-          }`}>$███</p>
-          
-          {/* Description + Switch Row */}
-          <div className="flex gap-3 mb-4">
-            <p className={`flex-1 text-[15px] leading-relaxed transition-colors duration-500 ${
-              isOff ? "text-neutral-300" : "text-neutral-700"
-            }`}>
-              Crafted in America from solid teak and machined aluminum, this wall mounted sconce provides a warm glow while doubling as a functional hanger. A piece that values your daily routine as much as your decor.
-            </p>
-            
-            {/* Light Switch */}
-            <div ref={mobileSwitchRef} className="flex-shrink-0">
-              <button 
-                onClick={toggleLight}
-                className={`relative w-16 h-32 rounded-full transition-all duration-300 ${
-                  isOff ? "bg-neutral-700" : "bg-neutral-300"
-                }`}
-                aria-label={isOff ? "Turn light on" : "Turn light off"}
-              >
-                <div 
-                  className={`absolute w-12 h-12 rounded-full bg-white shadow-md transition-all duration-300 left-1/2 -translate-x-1/2 ${
-                    isOff ? "top-2" : "bottom-2"
-                  }`}
-                />
-              </button>
-            </div>
-          </div>
-
-          {/* CTA Buttons */}
+        {/* CTA Buttons */}
+        <div className="px-6 py-5">
           <button disabled className="w-full bg-neutral-400 text-white px-6 py-4 text-base font-normal tracking-wide cursor-not-allowed mb-3">
             Batch 1: Sold out
           </button>
