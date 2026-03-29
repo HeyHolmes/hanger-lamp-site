@@ -205,10 +205,10 @@ export default function Home() {
   const marqueeItems = Array.from({ length: 12 }, (_, i) => i);
 
   return (
-    <div className="font-sans select-none bg-[#CCC5BD]">
+    <div className="font-sans select-none bg-[#DEDCDA]">
       {/* ========== SCROLLING MARQUEE BANNER ========== */}
       <div className={`fixed top-0 left-0 right-0 z-50 overflow-hidden py-2.5 transition-colors duration-500 ${
-        isOff ? "bg-[#2a2a2a]/80 backdrop-blur-sm" : "bg-[#CCC5BD]/80 backdrop-blur-sm"
+        isOff ? "bg-[#2a2a2a]/80 backdrop-blur-sm" : "bg-[#DEDCDA]/80 backdrop-blur-sm"
       }`}>
         <div
           className="flex items-center gap-8 whitespace-nowrap"
@@ -237,7 +237,7 @@ export default function Home() {
       {/* ========== HERO SECTION ========== */}
       {/* Mobile Layout */}
       <section className={`md:hidden flex flex-col pt-10 transition-colors duration-500 ${
-        isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
+        isOff ? "bg-[#2a2a2a]" : "bg-[#DEDCDA]"
       }`}>
         {/* Content Area - Text First, centered on first screen */}
         <div className="px-6 pt-[18vh] pb-6">
@@ -285,11 +285,11 @@ export default function Home() {
           />
           {/* Gradient fade at top */}
           <div className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-b to-transparent z-10 transition-colors duration-500 ${
-            isOff ? "from-[#2a2a2a]" : "from-[#CCC5BD]"
+            isOff ? "from-[#2a2a2a]" : "from-[#DEDCDA]"
           }`} />
           {/* Gradient fade at bottom */}
           <div className={`absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
-            isOff ? "from-[#2a2a2a]" : "from-[#CCC5BD]"
+            isOff ? "from-[#2a2a2a]" : "from-[#DEDCDA]"
           }`} />
           {/* Light Switch */}
           <div ref={mobileSwitchRef} className="absolute bottom-6 right-6 z-20">
@@ -353,7 +353,7 @@ export default function Home() {
           />
           {/* Gradient fade at bottom */}
           <div className={`absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t to-transparent z-10 transition-colors duration-500 ${
-            isOff ? "from-[#2a2a2a]" : "from-[#CCC5BD]"
+            isOff ? "from-[#2a2a2a]" : "from-[#DEDCDA]"
           }`} />
         </div>
 
@@ -436,7 +436,7 @@ export default function Home() {
 
       {/* ========== MOOD BOARD / COLLAGE SECTION ========== */}
       <section id="visuals" className={`py-8 md:py-12 px-4 md:px-8 transition-colors duration-500 ${
-        isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
+        isOff ? "bg-[#2a2a2a]" : "bg-[#DEDCDA]"
       }`}>
         {/* Mobile: Single column / Desktop: 12-column grid */}
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:auto-rows-[200px]">
@@ -608,7 +608,7 @@ export default function Home() {
 
       {/* ========== BATCH 2 SIGNUP SECTION ========== */}
       <section id="signup" className={`py-20 md:py-28 px-4 md:px-8 transition-colors duration-500 ${
-        isOff ? "bg-[#1a1a1a]" : "bg-[#CCC5BD]"
+        isOff ? "bg-[#1a1a1a]" : "bg-[#DEDCDA]"
       }`}>
         <div className="max-w-xl mx-auto text-center">
           <h2 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
