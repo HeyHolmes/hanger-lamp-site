@@ -312,14 +312,14 @@ export default function Home() {
         {/* CTA Buttons */}
         <div className="px-6 py-5">
           <button disabled className="w-full bg-neutral-400 text-white px-6 py-4 text-base font-normal tracking-wide cursor-not-allowed mb-3">
-            Batch 1: Sold out
+            <span className="line-through">Sold out</span>
           </button>
 
           <button
             onClick={() => setShowSignup(true)}
             className="w-full bg-black text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-neutral-800 transition-colors"
           >
-            Sign up for batch 2
+            Batch 2
           </button>
         </div>
       </section>
@@ -374,14 +374,14 @@ export default function Home() {
           </p>
 
           <button disabled className="w-full bg-neutral-400 text-white px-6 py-3 text-sm tracking-wide cursor-not-allowed mb-3">
-            Batch 1: Sold out
+            <span className="line-through">Sold out</span>
           </button>
 
           <button
             onClick={() => setShowSignup(true)}
             className="w-full bg-black text-white px-6 py-3 text-sm tracking-wide hover:bg-neutral-800 transition-colors mb-6"
           >
-            Sign up for batch 2
+            Batch 2
           </button>
 
           {/* Light Switch - Desktop */}
