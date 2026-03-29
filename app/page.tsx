@@ -712,8 +712,8 @@ export default function Home() {
                       room: (form.elements.namedItem("room") as HTMLSelectElement).value,
                     };
                     try {
-                      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL;
-                      if (scriptUrl) {
+                      const scriptUrl = "https://script.google.com/macros/s/AKfycbxf5yH-0G9yWle8JOMSEe5ZLPhaBbpSJEsXqNxPbn748PoMp62QQKabo9ZBWAfCziBb/exec";
+                      {
                         await fetch(scriptUrl, {
                           method: "POST",
                           mode: "no-cors",
