@@ -249,8 +249,8 @@ export default function Home() {
       <section className={`md:hidden flex flex-col pt-14 transition-colors duration-500 ${
         isOff ? "bg-[#2a2a2a]" : "bg-[#CCC5BD]"
       }`}>
-        {/* Content Area - Text First */}
-        <div className="px-6 pt-6 pb-4">
+        {/* Content Area - Text First, centered on first screen */}
+        <div className="px-6 min-h-[calc(100vh-56px)] flex flex-col justify-center pb-8">
           <h1 className={`text-[36px] font-light tracking-tight leading-none mb-2 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
