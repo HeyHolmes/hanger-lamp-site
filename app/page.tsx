@@ -212,7 +212,7 @@ export default function Home() {
       }`}>
         <div
           className="flex items-center gap-8 whitespace-nowrap"
-          style={{ transform: `translateX(${-scrollPos * 0.3}px)` }}
+          style={{ transform: `translateX(${-scrollPos * 0.08}px)`, opacity: 0.4 }}
         >
           {marqueeItems.map((i) => (
             <div key={i} className="flex items-center gap-8 shrink-0">
@@ -241,14 +241,14 @@ export default function Home() {
       }`}>
         {/* Content Area - Text First, centered on first screen */}
         <div className="px-6 pt-[18vh] pb-6">
-          <h1 className={`text-[36px] font-light tracking-tight leading-none mb-5 transition-colors duration-500 ${
-            isOff ? "text-neutral-200" : "text-black"
+          <p className={`text-[14px] uppercase tracking-[0.2em] mb-3 transition-colors duration-500 ${
+            isOff ? "text-neutral-400" : "text-neutral-500"
           }`}>
             Hanger Lamp
-          </h1>
-          <p className={`text-base italic mb-6 transition-colors duration-500 ${
-            isOff ? "text-neutral-400" : "text-neutral-600"
-          }`}>A utility rack that&apos;s lit.</p>
+          </p>
+          <h1 className={`text-[36px] font-light tracking-tight leading-tight mb-6 transition-colors duration-500 ${
+            isOff ? "text-neutral-200" : "text-black"
+          }`}>A utility rack that&apos;s lit.</h1>
 
           <p className={`text-[15px] leading-relaxed mb-4 transition-colors duration-500 ${
             isOff ? "text-neutral-300" : "text-neutral-700"
@@ -319,7 +319,7 @@ export default function Home() {
             onClick={() => setShowSignup(true)}
             className="w-full bg-black text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-neutral-800 transition-colors"
           >
-            Sign up for batch 2
+            Join Waitlist
           </button>
         </div>
       </section>
@@ -361,12 +361,14 @@ export default function Home() {
         <div className={`absolute left-12 top-1/2 -translate-y-1/2 z-10 max-w-sm transition-colors duration-500 ${
           isOff ? "text-neutral-200" : "text-black"
         }`}>
-          <h1 className="text-4xl font-normal tracking-tight mb-4">
+          <p className={`text-sm uppercase tracking-[0.2em] mb-3 transition-colors duration-500 ${
+            isOff ? "text-neutral-400" : "text-neutral-500"
+          }`}>
             Hanger Lamp
+          </p>
+          <h1 className="text-4xl font-light tracking-tight leading-tight mb-5">
+            A utility rack that&apos;s lit.
           </h1>
-          <p className={`text-base italic mb-5 transition-colors duration-500 ${
-            isOff ? "text-neutral-400" : "text-neutral-600"
-          }`}>A utility rack that&apos;s lit.</p>
           <p className={`text-[15px] leading-relaxed mb-8 transition-colors duration-500 ${
             isOff ? "text-neutral-300" : "text-neutral-600"
           }`}>
@@ -381,7 +383,7 @@ export default function Home() {
             onClick={() => setShowSignup(true)}
             className="w-full bg-black text-white px-6 py-3 text-sm tracking-wide hover:bg-neutral-800 transition-colors mb-6"
           >
-            Sign up for batch 2
+            Join Waitlist
           </button>
 
           {/* Light Switch - Desktop */}
@@ -434,15 +436,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========== MOOD BOARD / COLLAGE SECTION ========== */}
-      <section id="visuals" className={`py-8 lg:py-12 px-4 lg:px-8 transition-colors duration-500 ${
+      {/* ========== GALLERY SECTION ========== */}
+      <section id="visuals" className={`py-8 lg:py-16 px-4 lg:px-8 transition-colors duration-500 ${
         isOff ? "bg-[#2a2a2a]" : "bg-[#E2DCDB]"
       }`}>
-        {/* Mobile: Single column / Desktop: 12-column grid */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 lg:auto-rows-[200px]">
-          
-          {/* Large featured image */}
-          <div className="lg:col-span-8 lg:row-span-2 relative overflow-hidden group h-64 lg:h-auto">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+
+          {/* Featured image */}
+          <div className="relative overflow-hidden group aspect-[4/5]">
             <Image
               src={isOff ? "/images/gallery/inside-lights-off.JPG" : "/images/gallery/inside-lots-of-clothes-top-shot.JPG"}
               alt="Hanger Lamp lifestyle"
@@ -451,8 +452,8 @@ export default function Home() {
             />
           </div>
 
-          {/* Small image */}
-          <div className="lg:col-span-4 lg:row-span-1 relative overflow-hidden group h-48 lg:h-auto">
+          {/* Shade detail */}
+          <div className="relative overflow-hidden group aspect-[4/5]">
             <Image
               src="/images/gallery/close-up-shade.JPG"
               alt="Hanger Lamp shade detail"
@@ -462,10 +463,10 @@ export default function Home() {
           </div>
 
           {/* Materials text block */}
-          <div className={`lg:col-span-4 lg:row-span-1 p-6 lg:p-8 flex flex-col justify-center transition-colors duration-500 ${
+          <div className={`p-6 lg:p-10 flex flex-col justify-center transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
-            <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
+            <h3 className={`text-sm font-medium tracking-widest mb-3 transition-colors duration-500 ${
               isOff ? "text-neutral-400" : "text-neutral-500"
             }`}>MATERIALS</h3>
             <p className="text-base lg:text-lg font-light leading-relaxed">
@@ -476,8 +477,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Outdoor lifestyle image */}
-          <div className="lg:col-span-6 lg:row-span-2 relative overflow-hidden h-64 lg:h-auto group">
+          {/* Outdoor lifestyle */}
+          <div className="relative overflow-hidden group aspect-[4/5]">
             <Image
               src="/images/gallery/outside-florida-surf.JPG"
               alt="Hanger Lamp outdoor surf"
@@ -487,42 +488,40 @@ export default function Home() {
           </div>
 
           {/* Specs text block */}
-          <div id="specs" className={`lg:col-span-3 lg:row-span-2 p-6 lg:p-8 flex flex-col justify-between transition-colors duration-500 ${
+          <div id="specs" className={`p-6 lg:p-10 flex flex-col justify-center transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
-            <div>
-              <h3 className={`text-sm font-medium tracking-widest mb-4 transition-colors duration-500 ${
-                isOff ? "text-neutral-400" : "text-neutral-500"
-              }`}>SPECIFICATIONS</h3>
-              <div className="space-y-3 text-sm">
-                <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
-                  isOff ? "border-neutral-700" : "border-neutral-300"
-                }`}>
-                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Width</span>
-                  <span>46-1/2"</span>
-                </div>
-                <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
-                  isOff ? "border-neutral-700" : "border-neutral-300"
-                }`}>
-                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Height</span>
-                  <span>34-1/2"</span>
-                </div>
-                <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
-                  isOff ? "border-neutral-700" : "border-neutral-300"
-                }`}>
-                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Depth</span>
-                  <span>6-1/4"</span>
-                </div>
-                <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
-                  isOff ? "border-neutral-700" : "border-neutral-300"
-                }`}>
-                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Weight</span>
-                  <span>12.43 lbs</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Bulb</span>
-                  <span>E26 LED</span>
-                </div>
+            <h3 className={`text-sm font-medium tracking-widest mb-4 transition-colors duration-500 ${
+              isOff ? "text-neutral-400" : "text-neutral-500"
+            }`}>SPECIFICATIONS</h3>
+            <div className="space-y-3 text-sm">
+              <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
+                isOff ? "border-neutral-700" : "border-neutral-300"
+              }`}>
+                <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Width</span>
+                <span>46-1/2&quot;</span>
+              </div>
+              <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
+                isOff ? "border-neutral-700" : "border-neutral-300"
+              }`}>
+                <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Height</span>
+                <span>34-1/2&quot;</span>
+              </div>
+              <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
+                isOff ? "border-neutral-700" : "border-neutral-300"
+              }`}>
+                <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Depth</span>
+                <span>6-1/4&quot;</span>
+              </div>
+              <div className={`flex justify-between border-b pb-2 transition-colors duration-500 ${
+                isOff ? "border-neutral-700" : "border-neutral-300"
+              }`}>
+                <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Weight</span>
+                <span>12.43 lbs</span>
+              </div>
+              <div className="flex justify-between">
+                <span className={isOff ? "text-neutral-400" : "text-neutral-500"}>Bulb</span>
+                <span>E26 LED</span>
               </div>
             </div>
             <p className={`text-xs mt-4 transition-colors duration-500 ${
@@ -532,8 +531,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Medium image */}
-          <div className="lg:col-span-3 lg:row-span-2 relative overflow-hidden group h-64 lg:h-auto">
+          {/* Sauna/fins image */}
+          <div className="relative overflow-hidden group aspect-[4/5]">
             <Image
               src={isOff ? "/images/gallery/lights-off-push.JPG" : "/images/gallery/outside-fins-sauna.png"}
               alt="Hanger Lamp in use"
@@ -542,9 +541,8 @@ export default function Home() {
             />
           </div>
 
-
-          {/* Close-up image */}
-          <div className="lg:col-span-4 lg:row-span-2 relative overflow-hidden group h-64 lg:h-auto">
+          {/* Handle close-up */}
+          <div className="relative overflow-hidden group aspect-[4/5]">
             <Image
               src="/images/gallery/close-up-handle.JPG"
               alt="Hanger Lamp handle close-up"
@@ -554,7 +552,7 @@ export default function Home() {
           </div>
 
           {/* Care text block */}
-          <div className={`lg:col-span-4 lg:row-span-1 p-6 lg:p-8 flex flex-col justify-center transition-colors duration-500 ${
+          <div className={`p-6 lg:p-10 flex flex-col justify-center transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
             <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
@@ -567,8 +565,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Large final image */}
-          <div className="lg:col-span-8 lg:row-span-2 relative overflow-hidden group h-64 lg:h-auto">
+          {/* Snow environment */}
+          <div className="relative overflow-hidden group aspect-[4/5] lg:col-span-2">
             <Image
               src="/images/gallery/outside-snow-mammoth.JPG"
               alt="Hanger Lamp in snow environment"
