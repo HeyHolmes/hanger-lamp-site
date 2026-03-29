@@ -17,7 +17,6 @@ export default function Home() {
   const [activeImage, setActiveImage] = useState(images.length - 1);
   const [isDragging, setIsDragging] = useState(false);
   const [isOff, setIsOff] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [showSliderHint, setShowSliderHint] = useState(false);
   const [isSwitchFixed, setIsSwitchFixed] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
@@ -30,44 +29,13 @@ export default function Home() {
   const heroSectionRef = useRef<HTMLElement>(null);
   const mobileSwitchRef = useRef<HTMLDivElement>(null);
 
-  // Preload all product images via JS and start animation when all are decoded
+  // Preload all product images
   useEffect(() => {
-    let cancelled = false;
-    Promise.all(
-      images.map((img) => {
-        const i = new window.Image();
-        i.src = img.src;
-        return i.decode();
-      })
-    ).then(() => {
-      if (!cancelled) setIsAnimating(true);
+    images.forEach((img) => {
+      const i = new window.Image();
+      i.src = img.src;
     });
-    return () => { cancelled = true; };
   }, []);
-
-  // Intro animation: start fully open, hold 2s, then close
-  useEffect(() => {
-    if (!isAnimating) return;
-
-    const holdTime = 2000;
-    const timePerImage = 360;
-    let currentIndex = images.length - 1;
-
-    const holdTimeout = setTimeout(() => {
-      const interval = setInterval(() => {
-        currentIndex--;
-        if (currentIndex >= 0) {
-          setActiveImage(currentIndex);
-        }
-        if (currentIndex <= 0) {
-          clearInterval(interval);
-          setIsAnimating(false);
-        }
-      }, timePerImage);
-    }, holdTime);
-
-    return () => clearTimeout(holdTimeout);
-  }, [isAnimating]);
 
   // Vertical slider drag handler (desktop)
   const handleVerticalDrag = useCallback((clientY: number) => {
@@ -92,7 +60,7 @@ export default function Home() {
   }, []);
 
   const handleMouseDown = (e: React.MouseEvent, isHorizontal: boolean) => {
-    if (isOff || isAnimating) return;
+    if (isOff) return;
     setShowSliderHint(false);
     setIsDragging(true);
     if (isHorizontal) {
@@ -103,7 +71,7 @@ export default function Home() {
   };
 
   const handleTouchStart = (e: React.TouchEvent, isHorizontal: boolean) => {
-    if (isOff || isAnimating) return;
+    if (isOff) return;
     setShowSliderHint(false);
     setIsDragging(true);
     if (isHorizontal) {
@@ -166,7 +134,7 @@ export default function Home() {
 
   // Scroll-linked scrubber effect
   useEffect(() => {
-    if (isAnimating || isOff || isDragging) return;
+    if (isOff || isDragging) return;
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -190,7 +158,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isAnimating, isOff, isDragging]);
+  }, [isOff, isDragging]);
 
   // Mobile switch sticky behavior
   useEffect(() => {
