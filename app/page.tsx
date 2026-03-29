@@ -236,7 +236,7 @@ export default function Home() {
 
       {/* ========== HERO SECTION ========== */}
       {/* Mobile Layout */}
-      <section className={`md:hidden flex flex-col pt-10 transition-colors duration-500 ${
+      <section className={`lg:hidden flex flex-col pt-10 transition-colors duration-500 ${
         isOff ? "bg-[#2a2a2a]" : "bg-[#E2DCDB]"
       }`}>
         {/* Content Area - Text First, centered on first screen */}
@@ -325,7 +325,7 @@ export default function Home() {
       </section>
 
       {/* Desktop Layout */}
-      <section className="hidden md:block relative h-screen">
+      <section className="hidden lg:block relative h-screen">
         {/* Full-screen background image */}
         <div className="absolute inset-0 z-0">
           {images.map((img, i) => (
@@ -435,14 +435,14 @@ export default function Home() {
       </section>
 
       {/* ========== MOOD BOARD / COLLAGE SECTION ========== */}
-      <section id="visuals" className={`py-8 md:py-12 px-4 md:px-8 transition-colors duration-500 ${
+      <section id="visuals" className={`py-8 lg:py-12 px-4 lg:px-8 transition-colors duration-500 ${
         isOff ? "bg-[#2a2a2a]" : "bg-[#E2DCDB]"
       }`}>
         {/* Mobile: Single column / Desktop: 12-column grid */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:auto-rows-[200px]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 lg:auto-rows-[200px]">
           
           {/* Large featured image */}
-          <div className="md:col-span-8 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
+          <div className="lg:col-span-8 lg:row-span-2 relative overflow-hidden group h-64 lg:h-auto">
             <Image
               src={isOff ? "/images/gallery/inside-lights-off.JPG" : "/images/gallery/inside-lots-of-clothes-top-shot.JPG"}
               alt="Hanger Lamp lifestyle"
@@ -452,7 +452,7 @@ export default function Home() {
           </div>
 
           {/* Small image */}
-          <div className="md:col-span-4 md:row-span-1 relative overflow-hidden group h-48 md:h-auto">
+          <div className="lg:col-span-4 lg:row-span-1 relative overflow-hidden group h-48 lg:h-auto">
             <Image
               src="/images/gallery/close-up-shade.JPG"
               alt="Hanger Lamp shade detail"
@@ -462,13 +462,13 @@ export default function Home() {
           </div>
 
           {/* Materials text block */}
-          <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex flex-col justify-center transition-colors duration-500 ${
+          <div className={`lg:col-span-4 lg:row-span-1 p-6 lg:p-8 flex flex-col justify-center transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
             <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
               isOff ? "text-neutral-400" : "text-neutral-500"
             }`}>MATERIALS</h3>
-            <p className="text-base md:text-lg font-light leading-relaxed">
+            <p className="text-base lg:text-lg font-light leading-relaxed">
               Teak<br />
               Stainless Steel Hardware<br />
               6061 Aluminum<br />
@@ -477,7 +477,7 @@ export default function Home() {
           </div>
 
           {/* Outdoor lifestyle image */}
-          <div className="md:col-span-6 md:row-span-2 relative overflow-hidden h-64 md:h-auto group">
+          <div className="lg:col-span-6 lg:row-span-2 relative overflow-hidden h-64 lg:h-auto group">
             <Image
               src="/images/gallery/outside-florida-surf.JPG"
               alt="Hanger Lamp outdoor surf"
@@ -487,7 +487,7 @@ export default function Home() {
           </div>
 
           {/* Specs text block */}
-          <div id="specs" className={`md:col-span-3 md:row-span-2 p-6 md:p-8 flex flex-col justify-between transition-colors duration-500 ${
+          <div id="specs" className={`lg:col-span-3 lg:row-span-2 p-6 lg:p-8 flex flex-col justify-between transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
             <div>
@@ -533,7 +533,7 @@ export default function Home() {
           </div>
 
           {/* Medium image */}
-          <div className="md:col-span-3 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
+          <div className="lg:col-span-3 lg:row-span-2 relative overflow-hidden group h-64 lg:h-auto">
             <Image
               src={isOff ? "/images/gallery/lights-off-push.JPG" : "/images/gallery/outside-fins-sauna.png"}
               alt="Hanger Lamp in use"
@@ -544,7 +544,7 @@ export default function Home() {
 
 
           {/* Close-up image */}
-          <div className="md:col-span-4 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
+          <div className="lg:col-span-4 lg:row-span-2 relative overflow-hidden group h-64 lg:h-auto">
             <Image
               src="/images/gallery/close-up-handle.JPG"
               alt="Hanger Lamp handle close-up"
@@ -554,7 +554,7 @@ export default function Home() {
           </div>
 
           {/* Care text block */}
-          <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex flex-col justify-center transition-colors duration-500 ${
+          <div className={`lg:col-span-4 lg:row-span-1 p-6 lg:p-8 flex flex-col justify-center transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
             <h3 className={`text-sm font-medium tracking-widest mb-2 transition-colors duration-500 ${
@@ -568,7 +568,7 @@ export default function Home() {
           </div>
 
           {/* Large final image */}
-          <div className="md:col-span-8 md:row-span-2 relative overflow-hidden group h-64 md:h-auto">
+          <div className="lg:col-span-8 lg:row-span-2 relative overflow-hidden group h-64 lg:h-auto">
             <Image
               src="/images/gallery/outside-snow-mammoth.JPG"
               alt="Hanger Lamp in snow environment"
@@ -581,16 +581,16 @@ export default function Home() {
       </section>
 
       {/* ========== BATCH 2 SIGNUP SECTION ========== */}
-      <section id="signup" className={`py-20 md:py-28 px-4 md:px-8 transition-colors duration-500 ${
+      <section id="signup" className={`py-20 lg:py-28 px-4 lg:px-8 transition-colors duration-500 ${
         isOff ? "bg-[#1a1a1a]" : "bg-[#E2DCDB]"
       }`}>
         <div className="max-w-xl mx-auto text-center">
-          <h2 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
+          <h2 className={`text-2xl lg:text-3xl font-light mb-3 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
             Want in on Batch 2?
           </h2>
-          <p className={`text-sm md:text-base leading-relaxed mb-8 transition-colors duration-500 ${
+          <p className={`text-sm lg:text-base leading-relaxed mb-8 transition-colors duration-500 ${
             isOff ? "text-neutral-400" : "text-neutral-600"
           }`}>
             Batch 1 was for friends and family. We learned a lot and are prepping for batch 2. Be the first in line.
@@ -614,8 +614,8 @@ export default function Home() {
       </section>
 
       {/* ========== FOOTER ========== */}
-      <footer id="contact" className="bg-[#1a1a1a] text-white py-12 md:py-16 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+      <footer id="contact" className="bg-[#1a1a1a] text-white py-12 lg:py-16 px-4 lg:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           <div>
             <h4 className="text-xl font-medium mb-4">Hanger Lamp</h4>
             <p className="text-neutral-400 text-sm leading-relaxed">
@@ -637,7 +637,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-8 md:mt-12 pt-6 md:pt-8 border-t border-neutral-800 text-neutral-500 text-xs tracking-wide">
+        <div className="max-w-7xl mx-auto mt-8 lg:mt-12 pt-6 lg:pt-8 border-t border-neutral-800 text-neutral-500 text-xs tracking-wide">
           © 2026 Hanger Lamp. All rights reserved.
         </div>
       </footer>
