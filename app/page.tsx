@@ -14,7 +14,7 @@ const images = [
 ];
 
 export default function Home() {
-  const [activeImage, setActiveImage] = useState(images.length - 1);
+  const [activeImage, setActiveImage] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isOff, setIsOff] = useState(false);
   const [showSliderHint, setShowSliderHint] = useState(false);
