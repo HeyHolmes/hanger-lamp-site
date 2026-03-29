@@ -20,6 +20,9 @@ export default function Home() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [showSliderHint, setShowSliderHint] = useState(false);
   const [isSwitchFixed, setIsSwitchFixed] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+  const [signupSubmitted, setSignupSubmitted] = useState(false);
+  const [signupLoading, setSignupLoading] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
@@ -321,12 +324,12 @@ export default function Home() {
             Batch 1: Sold out
           </button>
 
-          <a
-            href="#signup"
-            className="block w-full bg-black text-white px-6 py-4 text-base font-normal font-heading tracking-wide hover:bg-neutral-800 transition-colors text-center"
+          <button
+            onClick={() => setShowSignup(true)}
+            className="w-full bg-black text-white px-6 py-4 text-base font-normal tracking-wide hover:bg-neutral-800 transition-colors"
           >
             Sign up for batch 2
-          </a>
+          </button>
         </div>
       </section>
 
@@ -381,12 +384,12 @@ export default function Home() {
             Batch 1: Sold out
           </button>
 
-          <a
-            href="#signup"
-            className="block w-full bg-black text-white px-6 py-3 text-sm font-normal font-heading tracking-wide hover:bg-neutral-800 transition-colors text-center mb-6"
+          <button
+            onClick={() => setShowSignup(true)}
+            className="w-full bg-black text-white px-6 py-3 text-sm tracking-wide hover:bg-neutral-800 transition-colors mb-6"
           >
             Sign up for batch 2
-          </a>
+          </button>
 
           {/* Light Switch - Desktop */}
           <button
@@ -595,9 +598,12 @@ export default function Home() {
             <p className="text-neutral-400 text-sm mb-6">
               Batch 2 ships Spring 2026. Join the waitlist to be first in line.
             </p>
-            <button className={`w-full md:w-auto px-6 py-3 text-sm tracking-wide transition-colors ${
-              isOff ? "bg-neutral-600 text-white hover:bg-neutral-500" : "bg-white text-black hover:bg-neutral-200"
-            }`}>
+            <button
+              onClick={() => setShowSignup(true)}
+              className={`w-full md:w-auto px-6 py-3 text-sm tracking-wide transition-colors ${
+                isOff ? "bg-neutral-600 text-white hover:bg-neutral-500" : "bg-white text-black hover:bg-neutral-200"
+              }`}
+            >
               Join Waitlist
             </button>
           </div>
@@ -620,40 +626,16 @@ export default function Home() {
           }`}>
             Batch 1 sold out. Drop your email to be first in line for the next run.
           </p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const form = e.target as HTMLFormElement;
-              const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-              // TODO: Connect to Mailchimp, ConvertKit, or Google Sheets
-              console.log("Signup email:", email);
-              form.reset();
-              alert("You're on the list. We'll be in touch.");
-            }}
-            className="flex flex-col sm:flex-row gap-3"
+          <button
+            onClick={() => setShowSignup(true)}
+            className={`px-8 py-3 text-sm tracking-wide transition-colors ${
+              isOff
+                ? "bg-white text-black hover:bg-neutral-200"
+                : "bg-black text-white hover:bg-neutral-800"
+            }`}
           >
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="your@email.com"
-              className={`flex-1 px-4 py-3 text-sm border transition-colors duration-500 focus:outline-none focus:ring-1 ${
-                isOff
-                  ? "bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500 focus:ring-neutral-500"
-                  : "bg-white border-neutral-300 text-black placeholder-neutral-400 focus:ring-black"
-              }`}
-            />
-            <button
-              type="submit"
-              className={`px-6 py-3 text-sm tracking-wide transition-colors ${
-                isOff
-                  ? "bg-white text-black hover:bg-neutral-200"
-                  : "bg-black text-white hover:bg-neutral-800"
-              }`}
-            >
-              Join Waitlist
-            </button>
-          </form>
+            Join Waitlist
+          </button>
           <p className={`text-xs mt-4 transition-colors duration-500 ${
             isOff ? "text-neutral-600" : "text-neutral-400"
           }`}>
@@ -692,6 +674,126 @@ export default function Home() {
           © 2026 Hanger Lamp. All rights reserved.
         </div>
       </footer>
+      {/* ========== SIGNUP MODAL ========== */}
+      {showSignup && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4"
+          onClick={(e) => { if (e.target === e.currentTarget) setShowSignup(false); }}
+        >
+          <div className="bg-[#f5f3f0] w-full max-w-md p-8 relative">
+            <button
+              onClick={() => setShowSignup(false)}
+              className="absolute top-4 right-4 text-neutral-500 hover:text-black text-xl leading-none"
+              aria-label="Close"
+            >
+              &times;
+            </button>
+
+            {signupSubmitted ? (
+              <div className="text-center py-8">
+                <h3 className="text-2xl font-light mb-3">You&apos;re on the list.</h3>
+                <p className="text-neutral-600 text-sm">We&apos;ll reach out when Batch 2 is ready. Thanks for your interest.</p>
+              </div>
+            ) : (
+              <>
+                <h3 className="text-2xl font-light mb-2">Join the Batch 2 Waitlist</h3>
+                <p className="text-neutral-600 text-sm mb-6">
+                  Tell us a bit about yourself so we can keep you in the loop.
+                </p>
+                <form
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    setSignupLoading(true);
+                    const form = e.target as HTMLFormElement;
+                    const data = {
+                      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+                      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+                      location: (form.elements.namedItem("location") as HTMLInputElement).value,
+                      room: (form.elements.namedItem("room") as HTMLSelectElement).value,
+                    };
+                    try {
+                      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL;
+                      if (scriptUrl) {
+                        await fetch(scriptUrl, {
+                          method: "POST",
+                          mode: "no-cors",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify(data),
+                        });
+                      }
+                    } catch {
+                      // Silently fail — we still show confirmation
+                    }
+                    setSignupLoading(false);
+                    setSignupSubmitted(true);
+                  }}
+                  className="space-y-4"
+                >
+                  <div>
+                    <label htmlFor="signup-name" className="block text-xs tracking-widest text-neutral-500 mb-1">NAME</label>
+                    <input
+                      id="signup-name"
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="First name"
+                      className="w-full px-4 py-3 text-sm border border-neutral-300 bg-white text-black placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-black"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="signup-email" className="block text-xs tracking-widest text-neutral-500 mb-1">EMAIL</label>
+                    <input
+                      id="signup-email"
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="your@email.com"
+                      className="w-full px-4 py-3 text-sm border border-neutral-300 bg-white text-black placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-black"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="signup-location" className="block text-xs tracking-widest text-neutral-500 mb-1">WHERE ARE YOU BASED?</label>
+                    <input
+                      id="signup-location"
+                      type="text"
+                      name="location"
+                      placeholder="City, State"
+                      className="w-full px-4 py-3 text-sm border border-neutral-300 bg-white text-black placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-black"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="signup-room" className="block text-xs tracking-widest text-neutral-500 mb-1">WHERE WILL IT LIVE?</label>
+                    <select
+                      id="signup-room"
+                      name="room"
+                      className="w-full px-4 py-3 text-sm border border-neutral-300 bg-white text-black focus:outline-none focus:ring-1 focus:ring-black appearance-none"
+                    >
+                      <option value="">Select a room</option>
+                      <option value="Bedroom">Bedroom</option>
+                      <option value="Entryway">Entryway</option>
+                      <option value="Bathroom">Bathroom</option>
+                      <option value="Home Office">Home Office</option>
+                      <option value="Living Room">Living Room</option>
+                      <option value="Hospitality">Hospitality / Commercial</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={signupLoading}
+                    className="w-full bg-black text-white px-6 py-3 text-sm tracking-wide hover:bg-neutral-800 transition-colors disabled:bg-neutral-400 disabled:cursor-not-allowed"
+                  >
+                    {signupLoading ? "Submitting..." : "Count me in"}
+                  </button>
+                  <p className="text-xs text-neutral-400 text-center">
+                    No spam. Just a heads up when Batch 2 drops.
+                  </p>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
