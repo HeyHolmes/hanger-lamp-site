@@ -283,12 +283,15 @@ export default function Home() {
         {/* Content Area */}
         <div className="flex-1 px-6 pt-4 pb-6">
           {/* Title */}
-          <h1 className={`text-[36px] font-light tracking-tight leading-none mb-1 transition-colors duration-500 ${
+          <h1 className={`text-[36px] font-light tracking-tight leading-none mb-2 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
             Hanger Lamp
           </h1>
-          
+          <p className={`text-base italic mb-3 transition-colors duration-500 ${
+            isOff ? "text-neutral-400" : "text-neutral-600"
+          }`}>A clothing rack that&apos;s lit.</p>
+
           {/* Price */}
           <p className={`text-xl font-light mb-3 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
@@ -371,9 +374,12 @@ export default function Home() {
         <div className={`absolute left-12 top-1/2 -translate-y-1/2 z-10 max-w-sm transition-colors duration-500 ${
           isOff ? "text-neutral-200" : "text-black"
         }`}>
-          <h1 className="text-4xl font-normal tracking-tight mb-1">
+          <h1 className="text-4xl font-normal tracking-tight mb-2">
             Hanger Lamp
           </h1>
+          <p className={`text-base italic mb-4 transition-colors duration-500 ${
+            isOff ? "text-neutral-400" : "text-neutral-600"
+          }`}>A clothing rack that&apos;s lit.</p>
           <p className="text-lg mb-5 tracking-wide">$███</p>
           <p className={`text-[15px] leading-relaxed mb-8 transition-colors duration-500 ${
             isOff ? "text-neutral-300" : "text-neutral-600"
