@@ -587,22 +587,6 @@ export default function Home() {
             />
           </div>
 
-          {/* Final CTA block */}
-          <div className="md:col-span-4 md:row-span-2 p-6 md:p-8 flex flex-col justify-center items-start bg-[#1a1a1a] text-white">
-            <h3 className="text-xl md:text-2xl font-light mb-4">Ready to hang?</h3>
-            <p className="text-neutral-400 text-sm mb-6">
-              Batch 2 ships Spring 2026. Join the waitlist to be first in line.
-            </p>
-            <button
-              onClick={() => setShowSignup(true)}
-              className={`w-full md:w-auto px-6 py-3 text-sm tracking-wide transition-colors ${
-                isOff ? "bg-neutral-600 text-white hover:bg-neutral-500" : "bg-white text-black hover:bg-neutral-200"
-              }`}
-            >
-              Join Waitlist
-            </button>
-          </div>
-
         </div>
       </section>
 
@@ -614,12 +598,12 @@ export default function Home() {
           <h2 className={`text-2xl md:text-3xl font-light mb-3 transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
           }`}>
-            Batch 2 — Spring 2026
+            Want in on Batch 2?
           </h2>
           <p className={`text-sm md:text-base leading-relaxed mb-8 transition-colors duration-500 ${
             isOff ? "text-neutral-400" : "text-neutral-600"
           }`}>
-            Batch 1 sold out. Drop your email to be first in line for the next run.
+            Batch 1 was for friends and family. We learned a lot and are prepping for batch 2. Be the first in line.
           </p>
           <button
             onClick={() => setShowSignup(true)}
