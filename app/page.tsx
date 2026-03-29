@@ -192,9 +192,12 @@ export default function Home() {
 
   const sliderPosition = (activeImage / (images.length - 1)) * 100;
 
-  // Track scroll position for marquee
+  // Track scroll position for marquee (only moves after 50% of viewport)
   useEffect(() => {
-    const handleScroll = () => setScrollPos(window.scrollY);
+    const handleScroll = () => {
+      const offset = Math.max(0, window.scrollY - window.innerHeight * 0.5);
+      setScrollPos(offset);
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
