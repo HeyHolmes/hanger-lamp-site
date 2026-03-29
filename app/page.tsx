@@ -451,6 +451,16 @@ export default function Home() {
             />
           </div>
 
+          {/* Small image */}
+          <div className="md:col-span-4 md:row-span-1 relative overflow-hidden group h-48 md:h-auto">
+            <Image
+              src="/images/gallery/close-up-shade.JPG"
+              alt="Hanger Lamp shade detail"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
           {/* Materials text block */}
           <div className={`md:col-span-4 md:row-span-1 p-6 md:p-8 flex flex-col justify-center transition-colors duration-500 ${
             isOff ? "text-neutral-200" : "text-black"
@@ -464,16 +474,6 @@ export default function Home() {
               6061 Aluminum<br />
               Powder Coated
             </p>
-          </div>
-
-          {/* Small image */}
-          <div className="md:col-span-4 md:row-span-1 relative overflow-hidden group h-48 md:h-auto">
-            <Image
-              src="/images/gallery/close-up-shade.JPG"
-              alt="Hanger Lamp shade detail"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
           </div>
 
           {/* Outdoor lifestyle image */}
