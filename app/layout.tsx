@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link
-          href="https://api.fontshare.com/v2/css?f[]=satoshi@700&f[]=erode@400&display=swap"
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,700&f[]=erode@400&display=swap"
           rel="stylesheet"
         />
       </head>

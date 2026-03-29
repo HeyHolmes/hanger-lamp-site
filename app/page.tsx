@@ -245,7 +245,7 @@ export default function Home() {
         >
           {marqueeItems.map((i) => (
             <div key={i} className="flex items-center gap-8 shrink-0">
-              <span className={`text-lg font-heading font-bold tracking-wide transition-colors duration-500 ${
+              <span className={`text-lg font-heading font-light tracking-wide transition-colors duration-500 ${
                 isOff ? "text-neutral-200" : "text-black"
               }`}>Hanger Lamp</span>
               <svg width="814" height="458" viewBox="126 103 562 252" fill="none" xmlns="http://www.w3.org/2000/svg" className={`w-10 h-auto transition-colors duration-500 ${isOff ? "text-neutral-200" : "text-black"}`}>
